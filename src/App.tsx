@@ -1,10 +1,19 @@
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/home";
+import Menu from "./pages/menu";
+import Pesanan from "./pages/pesanan";
+
 function App() {
   return (
-    <div>
-      <h1 className="font-bold text-4xl text-red-600">
-        First Setup for Baso Krijo
-      </h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path='/menu' element={<Menu />} />
+        <Route path='/pesanan' element={<Pesanan />} />
+      </Route>
+    </Routes>
   );
 }
 
