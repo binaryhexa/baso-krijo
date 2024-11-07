@@ -1,5 +1,5 @@
 export interface MenuProps {
-    image_link: string;
-    name: string;
-    harga: string;
+    image_link: string,
+    name: string,
+    harga: number,
 }

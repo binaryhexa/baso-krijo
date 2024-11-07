@@ -1,9 +1,14 @@
-import { Menu } from '@/utils/content';
+import {MenuProps} from "@/utils/interfaces"
+import { FC } from "react";
 
-const MenuCard = () => {
+interface MenuCardProps {
+  items: MenuProps[];
+}
+
+const MenuCard: FC<MenuCardProps> = ({items}) => {
   return (
     <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      {Menu.map((item, index) => (
+      {items.map((item, index) => (
         <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
           <img src={item.image_link} alt={item.name} className="w-full h-48 object-cover" />
           <div className="p-4">
@@ -17,3 +22,4 @@ const MenuCard = () => {
 };
 
 export default MenuCard;
+
