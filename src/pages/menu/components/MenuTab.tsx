@@ -5,7 +5,6 @@ import { Menu } from "@/utils/content";
 const MenuTab = () => {
   const [activeTab, setActiveTab] = useState("Semua Menu");
 
-  // Count items in each category
   const menuCounts = {
     "Semua Menu": Menu.length,
     Makanan: Menu.filter((item) => item.category === "Makanan").length,
@@ -24,7 +23,7 @@ const MenuTab = () => {
 
   return (
     <div className="mt-14 transition-all w-full">
-      <div className="flex gap-16 text-xl w-full border-b-2 transition-all">
+      <div className="flex gap-16 text-lg w-full border-b-2 transition-all">
         <a
           href="#"
           onClick={() => handleTabClick("Semua Menu")}

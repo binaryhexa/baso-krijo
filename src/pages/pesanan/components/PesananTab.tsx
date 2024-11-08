@@ -9,7 +9,7 @@ const PesananTab = () => {
 
   return (
     <div className="mt-14 transition-all">
-      <div className="flex gap-16 text-xl border-b-2 transition-all">
+      <div className="flex gap-16 text-lg border-b-2 transition-all">
         <a
           href="#"
           onClick={() => handleTabClick("Semua")}
