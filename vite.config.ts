@@ -21,6 +21,10 @@ export default defineConfig({
         replacement: resolve(__dirname, './src/components'),
       },
       {
+        find: '@/context',
+        replacement: resolve(__dirname, './src/context'),
+      },
+      {
         find: '@/fonts',
         replacement: resolve(__dirname, './src/fonts'),
       },

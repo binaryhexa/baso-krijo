@@ -3,7 +3,7 @@ import PieChartDashboard from "./components/PieChartDashboard";
 
 const Home = () => {
   return (
-    <div className="-mr-32">
+    <div>
       <h1 className="text-2xl font-semibold">Rekap Aktivitas</h1>
       <HeaderCard />
       <PieChartDashboard />
@@ -12,3 +12,4 @@ const Home = () => {
 };
 
 export default Home;
+
