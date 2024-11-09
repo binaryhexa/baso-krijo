@@ -19,7 +19,7 @@ const PesananTab = () => {
               : "hover:text-primary50"
           }`}
         >
-          Semua Menu
+          Semua
         </a>
         <a
           href="#"
