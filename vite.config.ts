@@ -2,10 +2,21 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
+// const urlMenuApi = process.env.VITE_URL_MENU_API;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: urlMenuApi,
+  //       changeOrigin: true,
+  //       // rewrite: (path) => path.replace(/^\/api/, ''),
+  //       secure: false,
+  //     },
+  //   },
+  // },
   resolve: {
     alias: [
       {

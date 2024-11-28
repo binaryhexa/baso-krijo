@@ -26,7 +26,8 @@
       "@/context/*": ["src/context/*"],
       "@/fonts/*": ["src/fonts/*"],
       "@/pages/*": ["src/pages/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/utils/*": ["src/utils/*"],
+      "@/services/*": ["src/services/*"],
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
