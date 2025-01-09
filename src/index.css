@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* For WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  transition: all ease-in-out 0.3s;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bcbcbc;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8f8f8f;
+}
+
 * {
   @apply font-poppins;
 }
@@ -10,9 +31,10 @@
   display: none;
 }
 
+/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .shadow-3xl {

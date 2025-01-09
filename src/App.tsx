@@ -4,7 +4,7 @@ import Home from "./pages/home";
 import Menu from "./pages/menu";
 import Pesanan from "./pages/pesanan";
 import { CartProvider } from "./context/CardContext";
-import Cart from "./pages/menu/components/Cart";
+import FormCreateMenu from "./pages/menu/create";
 
 function App() {
   return (
@@ -15,9 +15,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/pesanan" element={<Pesanan />} />
+          <Route path="/create" element={<FormCreateMenu />} />
         </Route>
       </Routes>
-      <Cart />
     </CartProvider>
   );
 }

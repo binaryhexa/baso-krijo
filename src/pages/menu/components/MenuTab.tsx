@@ -1,21 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuCard from "./MenuCard";
-import { Menu } from "@/utils/content";
+import axios from "axios";
+import { MenuProps } from "@/utils/interfaces";
 
 const MenuTab = () => {
   const [activeTab, setActiveTab] = useState("Semua Menu");
+  const [menuCounts, setMenuCounts] = useState({
+    "Semua Menu": 0,
+    "Makanan": 0,
+    "Minuman": 0,
+    "Toping": 0
+  });
 
-  const menuCounts = {
-    "Semua Menu": Menu.length,
-    Makanan: Menu.filter((item) => item.category === "Makanan").length,
-    Minuman: Menu.filter((item) => item.category === "Minuman").length,
-    Toping: Menu.filter((item) => item.category === "Toping").length,
-  };
-
-  const filteredMenu =
-    activeTab === "Semua Menu"
-      ? Menu
-      : Menu.filter((item) => item.category === activeTab);
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/menu")
+      .then((response) => {
+        const items = response.data;
+        setMenuCounts({
+          "Semua Menu": items.length,
+          "Makanan": items.filter((item: MenuProps) => item.category === "Makanan").length,
+          "Minuman": items.filter((item: MenuProps) => item.category === "Minuman").length,
+          "Toping": items.filter((item: MenuProps) => item.category === "Toping").length,
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching menu:", error);
+      });
+  }, []);
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
@@ -24,89 +35,28 @@ const MenuTab = () => {
   return (
     <div className="mt-14 transition-all w-full">
       <div className="flex gap-16 text-lg w-full border-b-2 transition-all">
-        <a
-          href="#"
-          onClick={() => handleTabClick("Semua Menu")}
-          className={`transition-all ${
-            activeTab === "Semua Menu"
-              ? "border-b-2 border-primary50 text-primary50"
-              : "hover:text-primary50"
-          } flex items-center gap-2`}
-        >
-          Semua Menu{" "}
-          <span
-            className={`${
-              activeTab === "Semua Menu"
+        {Object.entries(menuCounts).map(([tab, count]) => (
+          <a
+            key={tab}
+            onClick={() => handleTabClick(tab)}
+            className={`transition-all ${
+              activeTab === tab
+                ? "border-b-2 border-primary50 text-primary50"
+                : "hover:text-primary50"
+            } flex items-center gap-2 cursor-pointer`}
+          >
+            {tab}
+            <span className={`${
+              activeTab === tab
                 ? "bg-primary50 text-white"
                 : "bg-neutral60 text-white"
-            } rounded-full w-6 h-6 text-base flex items-center justify-center`}
-          >
-            {menuCounts["Semua Menu"]}
-          </span>
-        </a>
-        <a
-          href="#"
-          onClick={() => handleTabClick("Makanan")}
-          className={`transition-all ${
-            activeTab === "Makanan"
-              ? "border-b-2 border-primary50 text-primary50"
-              : "hover:text-primary50"
-          } flex items-center gap-2`}
-        >
-          Makanan{" "}
-          <span
-            className={`${
-              activeTab === "Makanan"
-                ? "bg-primary50 text-white"
-                : "bg-neutral60 text-white"
-            } rounded-full w-6 h-6 text-base flex items-center justify-center`}
-          >
-            {menuCounts["Makanan"]}
-          </span>
-        </a>
-        <a
-          href="#"
-          onClick={() => handleTabClick("Minuman")}
-          className={`transition-all ${
-            activeTab === "Minuman"
-              ? "border-b-2 border-primary50 text-primary50"
-              : "hover:text-primary50"
-          } flex items-center gap-2`}
-        >
-          Minuman{" "}
-          <span
-            className={`${
-              activeTab === "Minuman"
-                ? "bg-primary50 text-white"
-                : "bg-neutral60 text-white"
-            } rounded-full w-6 h-6 text-base flex items-center justify-center`}
-          >
-            {menuCounts["Minuman"]}
-          </span>
-        </a>
-        <a
-          href="#"
-          onClick={() => handleTabClick("Toping")}
-          className={`transition-all ${
-            activeTab === "Toping"
-              ? "border-b-2 border-primary50 text-primary50"
-              : "hover:text-primary50"
-          } flex items-center gap-2`}
-        >
-          Toping{" "}
-          <span
-            className={`${
-              activeTab === "Toping"
-                ? "bg-primary50 text-white"
-                : "bg-neutral60 text-white"
-            } rounded-full w-6 h-6 text-base flex items-center justify-center`}
-          >
-            {menuCounts["Toping"]}
-          </span>
-        </a>
+            } rounded-full w-6 h-6 text-base flex items-center justify-center`}>
+              {count}
+            </span>
+          </a>
+        ))}
       </div>
-
-      <MenuCard items={filteredMenu} />
+      <MenuCard category={activeTab} />
     </div>
   );
 };
