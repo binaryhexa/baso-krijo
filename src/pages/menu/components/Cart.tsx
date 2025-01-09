@@ -1,8 +1,9 @@
-import { ToastSuccess } from "@/components/Toasts";
 import { useCart } from "@/context/CardContext";
 import { MdDeleteForever } from "react-icons/md";
 import { useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
 import Loading from "@/components/Loading";
+import { ToastFailure, ToastSuccess } from "@/components/Toasts";
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useCart();
@@ -18,10 +19,13 @@ const Cart = () => {
   const handleCheckout = () => {
     if (cartItems.length > 0) {
       setIsLoading(true);
-      ToastSuccess("Berhasil masuk kedalam antrian!");
+      ToastSuccess("Pesanan Berhasil Dibuat");
       setTimeout(() => {
+        setIsLoading(false);
         window.location.reload();
       }, 1500);
+    } else {
+      ToastFailure("Pesanan Gagal Dibuat");
     }
   };
 
@@ -126,14 +130,11 @@ const Cart = () => {
           </div>
           <div className="mt-4 pt-4 border-t-[1px] border-gray-200">
             <button
-              className={`
-          rounded-full p-2 w-full transition-all 
-          ${
-            isLoading || cartItems.length === 0
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-white text-primary50 hover:bg-primary40 hover:text-white"
-          }
-        `}
+              className={`rounded-full p-2 w-full transition-all ${
+                isLoading || cartItems.length === 0
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-white text-primary50 hover:bg-primary40 hover:text-white"
+              }`}
               onClick={handleCheckout}
               disabled={isLoading || cartItems.length === 0}
             >
