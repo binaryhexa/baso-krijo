@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { ToastFailure, ToastSuccess } from "@/components/Toasts";
 
 interface MenuFormData {
   name: string;
@@ -10,7 +11,6 @@ interface MenuFormData {
 }
 
 const FormCreateMenu: React.FC = () => {
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const { register, handleSubmit, reset } = useForm<MenuFormData>();
 
   const onSubmit = async (data: MenuFormData) => {
@@ -18,24 +18,30 @@ const FormCreateMenu: React.FC = () => {
     formData.append("name", data.name);
     formData.append("harga", data.harga.toString());
     formData.append("category", data.category);
-    formData.append("image", data.image[0]); 
+    formData.append("image", data.image[0]);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/menu", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      setSuccessMessage("Menu berhasil ditambahkan!");
+      const response = await axios.post(
+        "http://localhost:5000/api/menu",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      ToastSuccess("Menu berhasil ditambahkan!");
       reset();
       console.log("Response:", response.data);
     } catch (error) {
       console.error("Error adding menu:", error);
-      setSuccessMessage("Gagal menambahkan menu.");
+      ToastFailure("Gagal menambahkan menu.");
     }
   };
 
   return (
     <div className="mx-auto mt-10 p-6 rounded-md">
-      <h2 className="text-xl font-semibold mb-4 text-center">Tambah Menu Baru</h2>
+      <h2 className="text-xl font-semibold mb-4 text-center">
+        Tambah Menu Baru
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label className="block mb-1 font-medium">Nama Menu</label>
@@ -81,9 +87,6 @@ const FormCreateMenu: React.FC = () => {
           Tambah Menu
         </button>
       </form>
-      {successMessage && (
-        <div className="mt-4 text-center text-green-600">{successMessage}</div>
-      )}
     </div>
   );
 };
