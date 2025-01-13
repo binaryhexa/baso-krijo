@@ -1,10 +1,10 @@
-import PesananTab from "./components/PesananTab";
+import PesananTable from "./components/PesananTable";
 
 const Pesanan = () => {
     return (
       <div>
         <h1 className="font-semibold text-2xl">Daftar Pesanan</h1>
-        <PesananTab />
+        <PesananTable />
       </div>
     );
   };
