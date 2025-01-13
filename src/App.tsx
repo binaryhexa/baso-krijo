@@ -6,6 +6,7 @@ import Pesanan from "./pages/pesanan";
 import { CartProvider } from "./context/CardContext";
 import FormCreateMenu from "./pages/menu/create";
 import { ToastContainer } from "react-toastify";
+import OrderDetail from "./pages/pesanan/detail";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/pesanan" element={<Pesanan />} />
+            <Route path="/pesanan/detail/:orderId" element={<OrderDetail />} />
             <Route path="/create" element={<FormCreateMenu />} />
           </Route>
         </Routes>
