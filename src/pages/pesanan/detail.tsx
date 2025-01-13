@@ -5,11 +5,13 @@ import { Typography } from "@mui/material";
 import { MenuProps, OrderProps } from "@/utils/interfaces";
 import CustomButton from "@/components/CustomButton";
 import { ToastSuccess } from "@/components/Toasts";
+import ConfirmModal from "./components/ConfirmModal";
 
 const OrderDetail = () => {
   const navigate = useNavigate();
   const { orderId } = useParams<{ orderId: string }>();
   const [order, setOrder] = useState<OrderProps | null>(null);
+  const [openModal, setOpenModal] = useState<boolean>(false); // Track modal open state
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -65,6 +67,13 @@ const OrderDetail = () => {
     }
   };
 
+  const handleCloseModal = () => setOpenModal(false);
+
+  const handleConfirmOrder = () => {
+    handleCompleteOrder();
+    setOpenModal(false);
+  };
+
   return (
     <div>
       <h1 className="font-semibold text-2xl">Detail Pesanan</h1>
@@ -77,19 +86,17 @@ const OrderDetail = () => {
           Pesanan Atas Nama:{" "}
           <span className="font-medium">{order?.nama_pembeli}</span>
         </p>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 mt-8">
           <div className="flex flex-col">
-            <p>
-              Status Pesanan:{" "}
-              <span className="font-medium">
-                {getStatusBadge(order?.status_pesanan ?? "Unknown Status")}
-              </span>
-            </p>
+            <p>Status Pesanan</p>
+            <span className="font-medium">
+              {getStatusBadge(order?.status_pesanan ?? "Unknown Status")}
+            </span>
           </div>
-          <p>
-            Jenis Pesanan:{" "}
+          <div className="flex flex-col">
+            <p>Jenis Pesanan</p>
             <span className="font-medium">{order?.jenis_pesanan}</span>
-          </p>
+          </div>
         </div>
       </div>
 
@@ -100,7 +107,7 @@ const OrderDetail = () => {
             <img
               src={menu.image_link}
               alt={menu.nama_menu}
-              className="h-24 w-32 rounded-xl"
+              className="h-24 w-32 rounded-xl object-cover"
             />
             <div className="flex flex-col">
               <Typography variant="h6">{menu.nama_menu}</Typography>
@@ -143,9 +150,15 @@ const OrderDetail = () => {
             ? "Pesanan Sudah Selesai"
             : "Selesaikan Pesanan"
         }
-        onClick={handleCompleteOrder}
+        onClick={() => setOpenModal(true)}
         className="w-full"
         disabled={order?.status_pesanan === "Selesai"}
+      />
+
+      <ConfirmModal
+        open={openModal}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmOrder}
       />
     </div>
   );

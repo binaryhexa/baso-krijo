@@ -149,8 +149,8 @@ const Cart = () => {
             >
               <option value="">Pilih Metode Pembayaran</option>
               <option value="cash">Cash</option>
-              <option value="qris">QRIS</option>
-              <option value="bank_transfer">Transfer Bank</option>
+              <option value="QRIS">QRIS</option>
+              <option value="Transfer Bank">Transfer Bank</option>
             </select>
           </div>
 
