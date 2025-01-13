@@ -8,12 +8,15 @@ import {
   TableHead,
   TableRow,
   styled,
+  Pagination,
 } from "@mui/material";
 import axios from "axios";
 import ActionButton from "@/components/ActionButton";
 
 const PesananTable = () => {
   const [data, setData] = useState<OrderProps[]>([]);
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 5; // Jumlah baris per halaman
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -61,8 +64,12 @@ const PesananTable = () => {
     });
   };
 
+  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   return (
-    <div className="py-20">
+    <div className="py-20 relative">
       <TableContainer className="rounded-2xl">
         <Table>
           <TableHead className="bg-gray-200">
@@ -78,28 +85,38 @@ const PesananTable = () => {
           </TableHead>
 
           <TableBody>
-            {data.map((row, index) => (
-              <TableRow key={row.id_pesanan}>
-                <TableCell align="center">{index + 1}</TableCell>
-                <TableCell align="center">
-                  {formatDate(row.created_at)}
-                </TableCell>
-                <TableCell align="center">{row.nama_pembeli}</TableCell>
-                <TableCell align="center">
-                  {getStatusBadge(row.status_pesanan)}
-                </TableCell>
-                <TableCell align="center">{row.jenis_pesanan}</TableCell>
-                <TableCell align="center">
-                  Rp. {row.total_harga.toLocaleString()}
-                </TableCell>
-                <TableCell align="center">
-                  <ActionButton detailPath={`/pesanan/detail/${row.id_pesanan}`} />
-                </TableCell>
-              </TableRow>
-            ))}
+            {data
+              .slice((page - 1) * rowsPerPage, page * rowsPerPage)
+              .map((row, index) => (
+                <TableRow key={row.id_pesanan}>
+                  <TableCell align="center">
+                    {(page - 1) * rowsPerPage + index + 1}
+                  </TableCell>
+                  <TableCell align="center">{formatDate(row.created_at)}</TableCell>
+                  <TableCell align="center">{row.nama_pembeli}</TableCell>
+                  <TableCell align="center">{getStatusBadge(row.status_pesanan)}</TableCell>
+                  <TableCell align="center">{row.jenis_pesanan}</TableCell>
+                  <TableCell align="center">
+                    Rp. {row.total_harga.toLocaleString()}
+                  </TableCell>
+                  <TableCell align="center">
+                    <ActionButton detailPath={`/pesanan/detail/${row.id_pesanan}`} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      <div className="absolute bottom-4 right-4">
+        <Pagination
+          count={Math.ceil(data.length / rowsPerPage)}
+          page={page}
+          onChange={handlePageChange}
+          shape="circular"
+          color="standard"
+        />
+      </div>
     </div>
   );
 };
