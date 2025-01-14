@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Typography, Box } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 import CustomButton from "@/components/CustomButton";
 
 interface ConfirmModalProps {
@@ -33,20 +33,14 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
         <div>
-          <Typography
-            variant="h6"
-            component="h1"
-            sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}
-          >
-            Anda Yakin?
-          </Typography>
-          <Typography sx={{ mt: 3, textAlign: "center" }}>
+          <p className="text-center font-medium text-2xl mt-2">Anda Yakin?</p>
+          <p className="text-center mt-2 font-medium">
             Data yang telah dibuat tidak bisa diubah.
-          </Typography>
+          </p>
         </div>
         <div className="flex gap-4">
           <CustomButton

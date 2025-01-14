@@ -23,11 +23,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         backgroundColor: variant === "contained" ? "#980000" : "transparent",
         border: variant === "outlined" ? "2px solid #980000" : "none",
         marginBottom: "10px",
-        "&:hover": {
-          backgroundColor: variant === "outlined" ? "#980000" : "transparent",
-          color: variant === "outlined" ? "white" : "#980000",
-          borderColor: variant === "outlined" ? "#980000" : "none",
-        },
         padding: "10px"
       }}
       variant={variant}
