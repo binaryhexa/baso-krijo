@@ -69,7 +69,7 @@ const PesananTable = () => {
   };
 
   return (
-    <div className="py-20 relative">
+    <div className="py-12 relative">
       <TableContainer className="rounded-2xl">
         <Table>
           <TableHead className="bg-gray-200">
