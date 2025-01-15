@@ -75,6 +75,7 @@ const PesananTable = () => {
           <TableHead className="bg-gray-200">
             <TableRow>
               <StyledTableCell align="center">No</StyledTableCell>
+              <StyledTableCell align="center">Kode Pesanan</StyledTableCell>
               <StyledTableCell align="center">Tanggal</StyledTableCell>
               <StyledTableCell align="center">Nama Pelanggan</StyledTableCell>
               <StyledTableCell align="center">Status Pesanan</StyledTableCell>
@@ -92,6 +93,7 @@ const PesananTable = () => {
                   <TableCell align="center">
                     {(page - 1) * rowsPerPage + index + 1}
                   </TableCell>
+                  <TableCell align="center">{row.kode_pesanan}</TableCell>
                   <TableCell align="center">{formatDate(row.created_at)}</TableCell>
                   <TableCell align="center">{row.nama_pembeli}</TableCell>
                   <TableCell align="center">{getStatusBadge(row.status_pesanan)}</TableCell>

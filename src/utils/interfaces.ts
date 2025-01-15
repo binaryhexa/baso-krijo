@@ -17,6 +17,7 @@ export interface Pesanan {
 
   export interface OrderProps {
     id_pesanan: string;
+    kode_pesanan: string;
     nama_pembeli: string;
     metode_pembayaran: string;
     status_pesanan: string;
@@ -26,4 +27,14 @@ export interface Pesanan {
     cash_dibayar: number,
     kembalian: number;
     menu_details: MenuProps[];
+}
+
+export interface SalesReportPDFProps {
+  reportData: {
+    menu_name: string;
+    quantity: number;
+    total_price: number;
+  }[];
+  totalPrice: number;
+  period?: string;
 }

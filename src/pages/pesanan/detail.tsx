@@ -80,7 +80,7 @@ const OrderDetail = () => {
 
       <div className="mt-10">
         <p>
-          ID Pesanan: <span className="font-medium">{order?.id_pesanan}</span>
+          Kode Pesanan: <span className="font-medium">{order?.kode_pesanan}</span>
         </p>
         <p>
           Pesanan Atas Nama:{" "}
