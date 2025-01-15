@@ -13,6 +13,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiOutlinePencil } from "react-icons/hi";
+import { HiOutlineTrash } from "react-icons/hi2";
 
 const ManajemenMenuTable = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const ManajemenMenuTable = () => {
   };
 
   return (
-    <div className="py-20 relative">
+    <div className="py-12 relative">
       {" "}
       <TableContainer className="rounded-2xl">
         <Table>
@@ -71,12 +72,24 @@ const ManajemenMenuTable = () => {
                     Rp. {row.harga.toLocaleString()}
                   </TableCell>
                   <TableCell align="center">
-                    <button
-                      onClick={() => navigate(`/manajemen-menu/edit/${row.id}`)}
-                      className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
-                    >
-                      <HiOutlinePencil size={20} />
-                    </button>{" "}
+                    <div className="flex gap-4 items-center justify-center">
+                      <button
+                        onClick={() =>
+                          navigate(`/manajemen-menu/edit/${row.id}`)
+                        }
+                        className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
+                      >
+                        <HiOutlinePencil size={20} />
+                      </button>{" "}
+                      <button
+                        onClick={() =>
+                          navigate(`/manajemen-menu/edit/${row.id}`)
+                        }
+                        className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
+                      >
+                        <HiOutlineTrash size={20} />
+                      </button>{" "}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

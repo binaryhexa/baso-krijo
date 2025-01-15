@@ -16,9 +16,9 @@ const Layout = () => {
       >
         <UserProfile />
       </div> */}
-      <main className="flex h-screen w-full p-0 overflow-hidden relative">
+      <main className="flex h-screen w-full p-0 overflow-hidden relative no-scrollbar">
         <Sidebar isHidden={isMenuPage} />
-        <section className="flex h-screen w-full overflow-auto p-8">
+        <section className="flex h-screen w-full overflow-auto p-8 no-scrollbar">
           <div className={`relative flex-grow ${isMenuPage ? "pr-72" : ""}`}>
             <Outlet />
           </div>
