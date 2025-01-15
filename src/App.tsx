@@ -7,6 +7,8 @@ import { CartProvider } from "./context/CardContext";
 import FormCreateMenu from "./pages/menu/create";
 import { ToastContainer } from "react-toastify";
 import OrderDetail from "./pages/pesanan/detail";
+import ManajemenMenu from "./pages/ManajemenMenu";
+import EditMenu from "./pages/ManajemenMenu/update";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
             <Route path="/menu" element={<Menu />} />
             <Route path="/pesanan" element={<Pesanan />} />
             <Route path="/pesanan/detail/:orderId" element={<OrderDetail />} />
+            <Route path="/manajemen-menu" element={<ManajemenMenu />} />
+            <Route path="/manajemen-menu/edit/:id" element={<EditMenu />} />
             <Route path="/create" element={<FormCreateMenu />} />
           </Route>
         </Routes>

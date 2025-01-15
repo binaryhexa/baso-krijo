@@ -7,7 +7,8 @@ import DateFilterModal from "./PDFDateFilter";
 const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
   const menuItems = [
     { name: "Dashboard", path: "/" },
-    { name: "Menu", path: "/menu" },
+    { name: "Manajemen Menu", path: "/manajemen-menu" },
+    { name: "Daftar Menu", path: "/menu" },
     { name: "Pesanan", path: "/pesanan" },
   ];
 
@@ -24,7 +25,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
     const fetchSalesReport = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/sales-report"
+          "http://localhost:5000/api/dashboard/sales-report"
         );
         const { reportData, totalPrice } = response.data;
 

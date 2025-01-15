@@ -1,5 +1,6 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { SalesReportPDFProps } from '@/utils/interfaces';
 
 const styles = StyleSheet.create({
   page: {
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: 'white',
   },
   tableCell: {
     fontSize: 11,
@@ -60,16 +61,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-interface SalesReportPDFProps {
-  reportData: {
-    menu_name: string;
-    quantity: number;
-    total_price: number;
-  }[];
-  totalPrice: number;
-  period?: string;
-}
 
 const SalesReportPDF: React.FC<SalesReportPDFProps> = ({ reportData, totalPrice, period = '1 Januari - 1 Februari' }) => {
   if (!reportData || reportData.length === 0) {
