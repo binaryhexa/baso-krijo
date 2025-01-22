@@ -33,6 +33,10 @@ export default defineConfig({
         replacement: resolve(__dirname, './src/pages'),
       },
       {
+        find: '@/services',
+        replacement: resolve(__dirname, './src/services'),
+      },
+      {
         find: '@/utils',
         replacement: resolve(__dirname, './src/utils'),
       },

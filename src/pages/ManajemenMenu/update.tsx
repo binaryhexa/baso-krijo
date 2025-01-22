@@ -10,8 +10,8 @@ const EditMenu = () => {
     name: "",
     category: "",
     harga: 0,
-    image_link: "", // URL gambar asli dari API
-    imageFile: null as File | null, // Untuk file gambar baru
+    image_link: "", 
+    imageFile: null as File | null, 
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ const EditMenu = () => {
     axios.get(`http://localhost:5000/api/menu/${id}`).then((response) => {
       setMenuData({
         ...response.data,
-        imageFile: null, // Set imageFile ke null karena gambar awal berupa URL
+        imageFile: null, 
       });
       setIsLoading(false);
     });
@@ -82,7 +82,7 @@ const EditMenu = () => {
             value={menuData.name}
             onChange={handleInputChange}
             placeholder="Nama Menu"
-            className="border rounded-full p-2 w-full"
+            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
           />
         </div>
         <div className="mb-4">
@@ -93,7 +93,7 @@ const EditMenu = () => {
             value={menuData.category}
             onChange={handleInputChange}
             placeholder="Kategori"
-            className="border rounded-full p-2 w-full"
+            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
           />
         </div>
         <div className="mb-4">
@@ -104,7 +104,7 @@ const EditMenu = () => {
             value={menuData.harga}
             onChange={handleInputChange}
             placeholder="Harga"
-            className="border rounded-full p-2 w-full"
+            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
           />
         </div>
         {menuData.image_link && (
@@ -123,7 +123,7 @@ const EditMenu = () => {
             type="file"
             name="imageFile"
             onChange={handleInputChange}
-            className="border rounded-full p-2 w-full"
+            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
             accept="image/*"
           />
         </div>

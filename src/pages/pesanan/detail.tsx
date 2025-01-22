@@ -54,7 +54,7 @@ const OrderDetail = () => {
     switch (status_pesanan) {
       case "Sedang Dibuat":
         return (
-          <span className="font-medium text-orange-500 ">Sedang Dibuat</span>
+          <span className="font-medium text-orange-500">Sedang Dibuat</span>
         );
       case "Selesai":
         return (
@@ -80,7 +80,8 @@ const OrderDetail = () => {
 
       <div className="mt-10">
         <p>
-          Kode Pesanan: <span className="font-medium">{order?.kode_pesanan}</span>
+          Kode Pesanan:{" "}
+          <span className="font-medium">{order?.kode_pesanan}</span>
         </p>
         <p>
           Pesanan Atas Nama:{" "}
@@ -101,29 +102,31 @@ const OrderDetail = () => {
       </div>
 
       <h2 className="mt-12 mb-2 font-medium text-lg">Menu Pesanan</h2>
-      {order?.menu_details.map((menu: MenuProps) => (
-        <div key={menu.id} className="bg-gray-200 p-2 rounded-2xl mb-4">
-          <div className="flex gap-4 items-center">
-            <img
-              src={menu.image_link}
-              alt={menu.nama_menu}
-              className="h-24 w-32 rounded-xl object-cover"
-            />
-            <div className="flex flex-col">
-              <Typography variant="h6">{menu.nama_menu}</Typography>
-              <Typography variant="body2" color="textSecondary">
-                Harga: Rp. {menu.harga.toLocaleString()}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Jumlah: {menu.jumlah}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Total Harga: Rp. {(menu.harga * menu.jumlah).toLocaleString()}
-              </Typography>
+      <div className="grid grid-cols-2 gap-4">
+        {order?.menu_details.map((menu: MenuProps) => (
+          <div key={menu.id} className="bg-gray-200 p-2 rounded-2xl mb-4">
+            <div className="flex gap-4 items-center">
+              <img
+                src={menu.image_link}
+                alt={menu.nama_menu}
+                className="h-24 w-32 rounded-xl object-cover"
+              />
+              <div className="flex flex-col">
+                <Typography variant="h6">{menu.nama_menu}</Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Harga: Rp. {menu.harga.toLocaleString()}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Jumlah: {menu.jumlah}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Total Harga: Rp. {(menu.harga * menu.jumlah).toLocaleString()}
+                </Typography>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <div className="mt-10 mb-10 grid grid-cols-3 gap-4">
         <div className="flex flex-col">

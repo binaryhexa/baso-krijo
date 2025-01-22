@@ -6,6 +6,7 @@ export interface MenuProps {
     category: string,
     nama_menu: string,
     jumlah: number,
+    stok: number
 }
 
 export interface Pesanan {

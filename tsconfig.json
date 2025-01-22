@@ -26,6 +26,7 @@
       "@/context/*": ["src/context/*"],
       "@/fonts/*": ["src/fonts/*"],
       "@/pages/*": ["src/pages/*"],
+      "@/services/*": ["src/services/*"],
       "@/utils/*": ["src/utils/*"]
     },
     "allowSyntheticDefaultImports": true,
@@ -34,3 +35,4 @@
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
+  
