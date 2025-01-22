@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import OrderDetail from "./pages/pesanan/detail";
 import ManajemenMenu from "./pages/ManajemenMenu";
 import EditMenu from "./pages/ManajemenMenu/update";
+import ManajemenStok from "./pages/ManajemenStok";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/pesanan/detail/:orderId" element={<OrderDetail />} />
             <Route path="/manajemen-menu" element={<ManajemenMenu />} />
             <Route path="/manajemen-menu/edit/:id" element={<EditMenu />} />
+            <Route path="/manajemen-stok" element={<ManajemenStok/>} />
             <Route path="/create" element={<FormCreateMenu />} />
           </Route>
         </Routes>

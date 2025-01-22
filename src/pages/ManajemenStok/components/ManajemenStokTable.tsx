@@ -16,7 +16,7 @@ import { HiOutlinePencil } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { ToastFailure, ToastSuccess } from "@/components/Toasts";
 
-const ManajemenMenuTable = () => {
+const ManajemenStokTable = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState<MenuProps[]>([]);
   const [page, setPage] = useState(1);
@@ -31,6 +31,7 @@ const ManajemenMenuTable = () => {
       .get("http://localhost:5000/api/menu")
       .then((response) => {
         setItems(response.data);
+        console.log(response.data)
       })
       .catch((error) => {
         console.error("Error fetching menus:", error);
@@ -68,10 +69,10 @@ const ManajemenMenuTable = () => {
           <TableHead className="bg-gray-200">
             <TableRow>
               <StyledTableCell align="center">No</StyledTableCell>
-              <StyledTableCell align="center">Gambar</StyledTableCell>
               <StyledTableCell align="center">Nama Menu</StyledTableCell>
               <StyledTableCell align="center">Kategori</StyledTableCell>
               <StyledTableCell align="center">Harga</StyledTableCell>
+              <StyledTableCell align="center">Jumlah Stok</StyledTableCell>
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -84,17 +85,12 @@ const ManajemenMenuTable = () => {
                   <TableCell align="center">
                     {(page - 1) * rowsPerPage + index + 1}
                   </TableCell>
-                  <TableCell align="center">
-                    <img
-                      src={row.image_link}
-                      className="rounded-2xl h-20 object-cover w-28 m-auto"
-                    />
-                  </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="center">{row.category}</TableCell>
                   <TableCell align="center">
                     Rp. {row.harga.toLocaleString()}
                   </TableCell>
+                  <TableCell align="center">{row.stok}</TableCell>
                   <TableCell align="center">
                     <div className="flex gap-4 items-center justify-center">
                       <button
@@ -131,4 +127,4 @@ const ManajemenMenuTable = () => {
   );
 };
 
-export default ManajemenMenuTable;
+export default ManajemenStokTable;

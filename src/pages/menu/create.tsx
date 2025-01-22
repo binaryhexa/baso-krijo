@@ -8,6 +8,7 @@ interface MenuFormData {
   harga: number;
   category: string;
   image: FileList;
+  stok: number;
 }
 
 const FormCreateMenu: React.FC = () => {
@@ -18,6 +19,7 @@ const FormCreateMenu: React.FC = () => {
     formData.append("name", data.name);
     formData.append("harga", data.harga.toString());
     formData.append("category", data.category);
+    formData.append("stok", data.stok.toString());
     formData.append("image", data.image[0]);
 
     try {
@@ -56,6 +58,14 @@ const FormCreateMenu: React.FC = () => {
           <input
             type="number"
             {...register("harga", { required: true })}
+            className="w-full border-[1.5px] border-gray-500 px-3 py-2 rounded-full"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-1 font-medium">Jumlah Stok</label>
+          <input
+            type="number"
+            {...register("stok", { required: true })}
             className="w-full border-[1.5px] border-gray-500 px-3 py-2 rounded-full"
           />
         </div>

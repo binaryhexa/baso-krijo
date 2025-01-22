@@ -2,14 +2,25 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import CustomButton from "./CustomButton";
 import { GoDownload } from "react-icons/go";
+import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 import axios from "axios";
 import DateFilterModal from "./PDFDateFilter";
+
 const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
   const menuItems = [
     { name: "Dashboard", path: "/" },
-    { name: "Manajemen Menu", path: "/manajemen-menu" },
-    { name: "Daftar Menu", path: "/menu" },
-    { name: "Pesanan", path: "/pesanan" },
+    {
+      name: "Menu",
+      subItems: [
+        { name: "Daftar Menu", path: "/menu" },
+        { name: "Manajemen Menu", path: "/manajemen-menu" },
+        { name: "Pesanan", path: "/pesanan" },
+      ],
+    },
+    {
+      name: "Stok",
+      subItems: [{ name: "Manajemen Stok", path: "/manajemen-stok" }],
+    },
   ];
 
   const location = useLocation();
@@ -20,6 +31,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedPeriod, setSelectedPeriod] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSalesReport = async () => {
@@ -44,6 +56,10 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
     setSelectedPeriod(formattedPeriod);
   };
 
+  const toggleMenu = (menuName: string) => {
+    setOpenMenu(openMenu === menuName ? null : menuName);
+  };
+
   return (
     <div
       className={`flex w-96 flex-col bg-primary50 pt-6 shadow-3xl transition-all duration-300 ${
@@ -60,27 +76,65 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
       <nav className="no-scrollbar h-full w-full overflow-y-scroll text-white">
         <ul className="flex flex-col py-4 p-0 h-full">
           {menuItems.map((menu, index) => (
-            <li
-              key={index}
-              className={`flex items-center justify-center mb-4 cursor-pointer hover:bg-primary40 hover:text-white hover:ml-10 hover:p-3 hover:rounded-l-full transition-all ${
-                location.pathname === menu.path
-                  ? "bg-white ml-10 p-3 text-black rounded-l-full"
-                  : ""
-              }`}
-            >
-              <a
-                href={menu.path}
-                className={`block py-2 w-full text-center ${
-                  location.pathname === menu.path ? "rounded-lg" : "border-none"
+            <div key={index}>
+              <li
+                onClick={() => menu.subItems && toggleMenu(menu.name)}
+                className={`flex items-center mb-4 p-3 cursor-pointer hover:bg-primary40 hover:text-white hover:ml-10 hover:p-3 hover:rounded-l-full transition-all ${
+                  location.pathname === menu.path
+                    ? "bg-white ml-10 p-3 text-black rounded-l-full"
+                    : ""
                 }`}
               >
-                {menu.name}
-              </a>
-            </li>
+                <a
+                  href={menu.path}
+                  className={`block py-2 px-5 w-full text-center ${
+                    location.pathname === menu.path
+                      ? "rounded-lg"
+                      : "border-none"
+                  }`}
+                >
+                  {menu.name}
+                </a>
+                {menu.subItems && (
+                  <span>
+                    {" "}
+                    {openMenu === menu.name ? (
+                      <FiChevronUp size={18} />
+                    ) : (
+                      <FiChevronDown size={18} />
+                    )}
+                  </span>
+                )}
+              </li>
+              {menu.subItems && openMenu === menu.name && (
+                <ul className="pl-6">
+                  {menu.subItems.map((subItem, index) => (
+                    <li
+                      key={index}
+                      className={`flex items-center justify-center mb-4 cursor-pointer hover:bg-primary40 hover:text-white hover:ml-10 hover:p-3 hover:rounded-l-full transition-all ${
+                        location.pathname === subItem.path
+                          ? "bg-white ml-10 p-3 text-black rounded-l-full"
+                          : ""
+                      }`}
+                    >
+                      <a
+                        href={subItem.path}
+                        className={`block py-2 w-full text-center ${
+                          location.pathname === subItem.path
+                            ? "rounded-lg"
+                            : "border-none"
+                        }`}
+                      >
+                        {subItem.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           ))}
         </ul>
         <div className="flex items-center justify-center -mt-14">
-          {/* Button to open the modal */}
           <CustomButton
             label="Cetak Laporan Penjualan"
             startIcon={<GoDownload />}
