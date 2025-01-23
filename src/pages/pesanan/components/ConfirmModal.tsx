@@ -39,7 +39,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
         <div>
           <p className="text-center font-medium text-2xl mt-2">Anda Yakin?</p>
           <p className="text-center mt-2 font-medium">
-            Data yang telah dibuat tidak bisa diubah.
+            Data pesanan yang telah diselesaikan tidak bisa diubah.
           </p>
         </div>
         <div className="flex gap-4">

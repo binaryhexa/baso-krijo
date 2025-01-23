@@ -31,7 +31,7 @@ const ManajemenStokTable = () => {
       .get("http://localhost:5000/api/menu")
       .then((response) => {
         setItems(response.data);
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching menus:", error);
@@ -48,17 +48,17 @@ const ManajemenStokTable = () => {
 
   const handleDelete = (id: string) => {
     axios
-      .delete(`http://localhost:5000/api/menu/${id}`)
+      .put(`http://localhost:5000/api/stok/${id}/reset`, { newStock: 0 })
       .then(() => {
-        ToastSuccess("Menu berhasil dihapus.");
+        ToastSuccess("Stok berhasil dihapus.");
         fetchMenus();
         setTimeout(() => {
           window.location.reload();
         }, 1500);
       })
       .catch((error) => {
-        console.error("Error deleting menu:", error);
-        ToastFailure("Gagal menghapus menu.");
+        console.error("Error resetting stok:", error);
+        ToastFailure("Gagal menghapus stok.");
       });
   };
 
@@ -95,7 +95,7 @@ const ManajemenStokTable = () => {
                     <div className="flex gap-4 items-center justify-center">
                       <button
                         onClick={() =>
-                          navigate(`/manajemen-menu/edit/${row.id}`)
+                          navigate(`/manajemen-stok/edit/${row.id}`)
                         }
                         className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
                       >

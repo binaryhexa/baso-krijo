@@ -10,6 +10,7 @@ const EditMenu = () => {
     name: "",
     category: "",
     harga: 0,
+    stok: 0,
     image_link: "", 
     imageFile: null as File | null, 
   });
@@ -48,6 +49,7 @@ const EditMenu = () => {
     formData.append("name", menuData.name);
     formData.append("category", menuData.category);
     formData.append("harga", menuData.harga.toString());
+    formData.append("stok", menuData.stok.toString());
     if (menuData.imageFile) {
       formData.append("image", menuData.imageFile);
     }
@@ -104,6 +106,17 @@ const EditMenu = () => {
             value={menuData.harga}
             onChange={handleInputChange}
             placeholder="Harga"
+            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block font-medium mb-2">Jumlah Stok</label>
+          <input
+            type="number"
+            name="stok"
+            value={menuData.stok}
+            onChange={handleInputChange}
+            placeholder="Jumlah Stok"
             className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
           />
         </div>
