@@ -1,12 +1,19 @@
 import CustomButton from "@/components/CustomButton";
 import ManajemenStokTable from "./components/ManajemenStokTable";
+import { useNavigate } from "react-router-dom";
+import { IoIosAdd } from "react-icons/io";
 
 const ManajemenStok = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex justify-between">
         <h1 className="text-2xl font-semibold">Manajemen Stok</h1>
-        <CustomButton label="Tambahkan Stok"/>
+        <CustomButton
+          label="Tambahkan Stok"
+          onClick={() => navigate("/manajemen-stok/create")}
+          endIcon={<IoIosAdd />}
+        />
       </div>
       <ManajemenStokTable />
     </div>

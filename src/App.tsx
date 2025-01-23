@@ -10,6 +10,8 @@ import OrderDetail from "./pages/pesanan/detail";
 import ManajemenMenu from "./pages/ManajemenMenu";
 import EditMenu from "./pages/ManajemenMenu/update";
 import ManajemenStok from "./pages/ManajemenStok";
+import ManajemenStokCreate from "./pages/ManajemenStok/create";
+import EditStok from "./pages/ManajemenStok/update";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             <Route path="/manajemen-menu" element={<ManajemenMenu />} />
             <Route path="/manajemen-menu/edit/:id" element={<EditMenu />} />
             <Route path="/manajemen-stok" element={<ManajemenStok/>} />
+            <Route path="/manajemen-stok/create" element={<ManajemenStokCreate />} />
+            <Route path="/manajemen-stok/edit/:id" element={<EditStok />} />
             <Route path="/create" element={<FormCreateMenu />} />
           </Route>
         </Routes>

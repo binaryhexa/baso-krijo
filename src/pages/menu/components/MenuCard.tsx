@@ -37,12 +37,12 @@ const MenuCard: FC<{ category?: string }> = ({ category }) => {
     updateQuantity(item.id, Math.max(newCount, 0));
   };
 
-  if(items.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="text-center text-lg m-auto py-28 font-medium">
         Tidak ada Data
       </div>
-    )
+    );
   }
 
   return (
@@ -59,6 +59,7 @@ const MenuCard: FC<{ category?: string }> = ({ category }) => {
           />
           <div className="p-4">
             <h2 className="text-lg font-semibold">{item.name}</h2>
+            <p className="">Sisa Stok: {item.stok}</p>
             <div className="flex justify-between">
               <p className="text-gray-600">
                 Rp {item.harga.toLocaleString("id-ID")}
