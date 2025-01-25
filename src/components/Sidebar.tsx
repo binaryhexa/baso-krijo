@@ -73,7 +73,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
           </h1>
         </a>
       </div>
-      <nav className="no-scrollbar h-full w-full overflow-y-scroll text-white">
+      <nav className="no-scrollbar h-full w-full overflow-y-scroll text-white text-[15px]">
         <ul className="flex flex-col py-4 p-0 h-full">
           {menuItems.map((menu, index) => (
             <div key={index}>
@@ -87,7 +87,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
               >
                 <a
                   href={menu.path}
-                  className={`block py-2 px-5 w-full text-center ${
+                  className={`block py-2 px-8 w-full ${
                     location.pathname === menu.path
                       ? "rounded-lg"
                       : "border-none"
@@ -97,7 +97,6 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
                 </a>
                 {menu.subItems && (
                   <span>
-                    {" "}
                     {openMenu === menu.name ? (
                       <FiChevronUp size={18} />
                     ) : (
@@ -113,13 +112,13 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
                       key={index}
                       className={`flex items-center justify-center mb-4 cursor-pointer hover:bg-primary40 hover:text-white hover:ml-10 hover:p-3 hover:rounded-l-full transition-all ${
                         location.pathname === subItem.path
-                          ? "bg-white ml-10 p-3 text-black rounded-l-full"
+                          ? "bg-white ml-6 p-3 text-black rounded-l-full"
                           : ""
                       }`}
                     >
                       <a
                         href={subItem.path}
-                        className={`block py-2 w-full text-center ${
+                        className={`block py-2 px-8 w-full ${
                           location.pathname === subItem.path
                             ? "rounded-lg"
                             : "border-none"
