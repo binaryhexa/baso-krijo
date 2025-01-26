@@ -1,22 +1,22 @@
-import React, { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import { CartProvider } from "./context/CardContext";
 import { ToastContainer } from "react-toastify";
 import Loading from "./components/Loading";
 
-const Home = React.lazy(() => import("./pages/home"));
-const Menu = React.lazy(() => import("./pages/menu"));
-const Pesanan = React.lazy(() => import("./pages/pesanan"));
-const FormCreateMenu = React.lazy(() => import("./pages/menu/create"));
-const OrderDetail = React.lazy(() => import("./pages/pesanan/detail"));
-const ManajemenMenu = React.lazy(() => import("./pages/ManajemenMenu"));
-const EditMenu = React.lazy(() => import("./pages/ManajemenMenu/update"));
-const ManajemenStok = React.lazy(() => import("./pages/ManajemenStok"));
-const ManajemenStokCreate = React.lazy(
+const Home = lazy(() => import("./pages/home"));
+const Menu = lazy(() => import("./pages/menu"));
+const Pesanan = lazy(() => import("./pages/pesanan"));
+const FormCreateMenu = lazy(() => import("./pages/menu/create"));
+const OrderDetail = lazy(() => import("./pages/pesanan/detail"));
+const ManajemenMenu = lazy(() => import("./pages/ManajemenMenu"));
+const EditMenu = lazy(() => import("./pages/ManajemenMenu/update"));
+const ManajemenStok = lazy(() => import("./pages/ManajemenStok"));
+const ManajemenStokCreate = lazy(
   () => import("./pages/ManajemenStok/create")
 );
-const EditStok = React.lazy(() => import("./pages/ManajemenStok/update"));
+const EditStok = lazy(() => import("./pages/ManajemenStok/update"));
 
 function App() {
   return (

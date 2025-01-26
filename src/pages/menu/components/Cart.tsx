@@ -202,7 +202,7 @@ const Cart = () => {
                   : "bg-white text-primary50 hover:bg-primary40 hover:text-white"
               }`}
               onClick={handleCheckout}
-              disabled={isLoading || cartItems.length === 0}
+              disabled={cartItems.length === 0}
             >
               {isLoading ? <Loading /> : "Buat Pesanan"}
             </button>
