@@ -16,7 +16,7 @@ import ActionButton from "@/components/ActionButton";
 const PesananTable = () => {
   const [data, setData] = useState<OrderProps[]>([]);
   const [page, setPage] = useState(1);
-  const rowsPerPage = 5; // Jumlah baris per halaman
+  const rowsPerPage = 5;
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -41,15 +41,9 @@ const PesananTable = () => {
   const getStatusBadge = (status_pesanan: string) => {
     switch (status_pesanan) {
       case "Sedang Dibuat":
-        return (
-          <span className="font-medium text-orange-500 ">Sedang Dibuat</span>
-        );
+        return <span className="font-medium text-orange-500 ">Sedang Dibuat</span>;
       case "Selesai":
-        return (
-          <span className="rounded-full font-medium text-green-500 ">
-            Selesai
-          </span>
-        );
+        return <span className="rounded-full font-medium text-green-500 ">Selesai</span>;
       default:
         return null;
     }
@@ -86,26 +80,34 @@ const PesananTable = () => {
           </TableHead>
 
           <TableBody>
-            {data
-              .slice((page - 1) * rowsPerPage, page * rowsPerPage)
-              .map((row, index) => (
-                <TableRow key={row.id_pesanan}>
-                  <TableCell align="center">
-                    {(page - 1) * rowsPerPage + index + 1}
-                  </TableCell>
-                  <TableCell align="center">{row.kode_pesanan}</TableCell>
-                  <TableCell align="center">{formatDate(row.created_at)}</TableCell>
-                  <TableCell align="center">{row.nama_pembeli}</TableCell>
-                  <TableCell align="center">{getStatusBadge(row.status_pesanan)}</TableCell>
-                  <TableCell align="center">{row.jenis_pesanan}</TableCell>
-                  <TableCell align="center">
-                    Rp. {row.total_harga.toLocaleString()}
-                  </TableCell>
-                  <TableCell align="center">
-                    <ActionButton detailPath={`/pesanan/detail/${row.id_pesanan}`} />
-                  </TableCell>
-                </TableRow>
-              ))}
+            {data.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={8} align="center">
+                  Tidak ada Data.
+                </TableCell>
+              </TableRow>
+            ) : (
+              data
+                .slice((page - 1) * rowsPerPage, page * rowsPerPage)
+                .map((row, index) => (
+                  <TableRow key={row.id_pesanan}>
+                    <TableCell align="center">
+                      {(page - 1) * rowsPerPage + index + 1}
+                    </TableCell>
+                    <TableCell align="center">{row.kode_pesanan}</TableCell>
+                    <TableCell align="center">{formatDate(row.created_at)}</TableCell>
+                    <TableCell align="center">{row.nama_pembeli}</TableCell>
+                    <TableCell align="center">{getStatusBadge(row.status_pesanan)}</TableCell>
+                    <TableCell align="center">{row.jenis_pesanan}</TableCell>
+                    <TableCell align="center">
+                      Rp. {row.total_harga.toLocaleString()}
+                    </TableCell>
+                    <TableCell align="center">
+                      <ActionButton detailPath={`/pesanan/detail/${row.id_pesanan}`} />
+                    </TableCell>
+                  </TableRow>
+                ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

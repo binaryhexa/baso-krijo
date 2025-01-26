@@ -78,39 +78,47 @@ const ManajemenStokTable = () => {
           </TableHead>
 
           <TableBody>
-            {items
-              .slice((page - 1) * rowsPerPage, page * rowsPerPage)
-              .map((row, index) => (
-                <TableRow key={row.id}>
-                  <TableCell align="center">
-                    {(page - 1) * rowsPerPage + index + 1}
-                  </TableCell>
-                  <TableCell align="center">{row.name}</TableCell>
-                  <TableCell align="center">{row.category}</TableCell>
-                  <TableCell align="center">
-                    Rp. {row.harga.toLocaleString()}
-                  </TableCell>
-                  <TableCell align="center">{row.stok}</TableCell>
-                  <TableCell align="center">
-                    <div className="flex gap-4 items-center justify-center">
-                      <button
-                        onClick={() =>
-                          navigate(`/manajemen-stok/edit/${row.id}`)
-                        }
-                        className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
-                      >
-                        <HiOutlinePencil size={20} />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(row.id)}
-                        className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
-                      >
-                        <HiOutlineTrash size={20} />
-                      </button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+            {items.length === 0 ? (
+              <TableRow>
+                <TableCell align="center" colSpan={6} className="text-gray-500">
+                  Tidak ada Data.
+                </TableCell>
+              </TableRow>
+            ) : (
+              items
+                .slice((page - 1) * rowsPerPage, page * rowsPerPage)
+                .map((row, index) => (
+                  <TableRow key={row.id}>
+                    <TableCell align="center">
+                      {(page - 1) * rowsPerPage + index + 1}
+                    </TableCell>
+                    <TableCell align="center">{row.name}</TableCell>
+                    <TableCell align="center">{row.category}</TableCell>
+                    <TableCell align="center">
+                      Rp. {row.harga.toLocaleString()}
+                    </TableCell>
+                    <TableCell align="center">{row.stok}</TableCell>
+                    <TableCell align="center">
+                      <div className="flex gap-4 items-center justify-center">
+                        <button
+                          onClick={() =>
+                            navigate(`/manajemen-stok/edit/${row.id}`)
+                          }
+                          className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
+                        >
+                          <HiOutlinePencil size={20} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(row.id)}
+                          className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
+                        >
+                          <HiOutlineTrash size={20} />
+                        </button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

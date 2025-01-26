@@ -77,56 +77,66 @@ const ManajemenMenuTable = () => {
           </TableHead>
 
           <TableBody>
-            {items
-              .slice((page - 1) * rowsPerPage, page * rowsPerPage)
-              .map((row, index) => (
-                <TableRow key={row.id}>
-                  <TableCell align="center">
-                    {(page - 1) * rowsPerPage + index + 1}
-                  </TableCell>
-                  <TableCell align="center">
-                    <img
-                      src={row.image_link}
-                      className="rounded-2xl h-20 object-cover w-28 m-auto"
-                    />
-                  </TableCell>
-                  <TableCell align="center">{row.name}</TableCell>
-                  <TableCell align="center">{row.category}</TableCell>
-                  <TableCell align="center">
-                    Rp. {row.harga.toLocaleString()}
-                  </TableCell>
-                  <TableCell align="center">
-                    <div className="flex gap-4 items-center justify-center">
-                      <button
-                        onClick={() =>
-                          navigate(`/manajemen-menu/edit/${row.id}`)
-                        }
-                        className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
-                      >
-                        <HiOutlinePencil size={20} />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(row.id)}
-                        className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
-                      >
-                        <HiOutlineTrash size={20} />
-                      </button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+            {items.length > 0 ? (
+              items
+                .slice((page - 1) * rowsPerPage, page * rowsPerPage)
+                .map((row, index) => (
+                  <TableRow key={row.id}>
+                    <TableCell align="center">
+                      {(page - 1) * rowsPerPage + index + 1}
+                    </TableCell>
+                    <TableCell align="center">
+                      <img
+                        src={row.image_link}
+                        className="rounded-2xl h-20 object-cover w-28 m-auto"
+                      />
+                    </TableCell>
+                    <TableCell align="center">{row.name}</TableCell>
+                    <TableCell align="center">{row.category}</TableCell>
+                    <TableCell align="center">
+                      Rp. {row.harga.toLocaleString()}
+                    </TableCell>
+                    <TableCell align="center">
+                      <div className="flex gap-4 items-center justify-center">
+                        <button
+                          onClick={() =>
+                            navigate(`/manajemen-menu/edit/${row.id}`)
+                          }
+                          className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
+                        >
+                          <HiOutlinePencil size={20} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(row.id)}
+                          className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
+                        >
+                          <HiOutlineTrash size={20} />
+                        </button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center">
+                  Tidak ada Data.
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
-      <div className="absolute bottom-4 right-4">
-        <Pagination
-          count={Math.ceil(items.length / rowsPerPage)}
-          page={page}
-          onChange={handlePageChange}
-          shape="circular"
-          color="standard"
-        />
-      </div>
+      {items.length > 0 && (
+        <div className="absolute bottom-4 right-4">
+          <Pagination
+            count={Math.ceil(items.length / rowsPerPage)}
+            page={page}
+            onChange={handlePageChange}
+            shape="circular"
+            color="standard"
+          />
+        </div>
+      )}
     </div>
   );
 };
