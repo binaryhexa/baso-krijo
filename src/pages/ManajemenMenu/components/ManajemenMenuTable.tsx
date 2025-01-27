@@ -127,7 +127,7 @@ const ManajemenMenuTable = () => {
         </Table>
       </TableContainer>
       {items.length > 0 && (
-        <div className="absolute bottom-4 right-4">
+        <div className="absolute bottom-1 right-4">
           <Pagination
             count={Math.ceil(items.length / rowsPerPage)}
             page={page}
