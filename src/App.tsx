@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import { CartProvider } from "./context/CardContext";
 import { ToastContainer } from "react-toastify";
-import Loading from "./components/Loading";
+import LoadingScreen from "./components/LoadingScreen";
 
 const Home = lazy(() => import("./pages/home"));
 const Menu = lazy(() => import("./pages/menu"));
@@ -13,16 +13,14 @@ const OrderDetail = lazy(() => import("./pages/pesanan/detail"));
 const ManajemenMenu = lazy(() => import("./pages/ManajemenMenu"));
 const EditMenu = lazy(() => import("./pages/ManajemenMenu/update"));
 const ManajemenStok = lazy(() => import("./pages/ManajemenStok"));
-const ManajemenStokCreate = lazy(
-  () => import("./pages/ManajemenStok/create")
-);
+const ManajemenStokCreate = lazy(() => import("./pages/ManajemenStok/create"));
 const EditStok = lazy(() => import("./pages/ManajemenStok/update"));
 
 function App() {
   return (
     <>
       <CartProvider>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<LoadingScreen />}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />

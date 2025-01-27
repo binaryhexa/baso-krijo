@@ -2,7 +2,7 @@ import { useCart } from "@/context/CardContext";
 import { MdDeleteForever } from "react-icons/md";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import Loading from "@/components/Loading";
+import Loading from "@/components/LoadingButton";
 import { ToastFailure, ToastSuccess } from "@/components/Toasts";
 import { useNavigate } from "react-router-dom";
 
@@ -46,11 +46,14 @@ const Cart = () => {
       };
 
       try {
-        const response = await fetch("http://localhost:5000/api/orders/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/orders/checkout",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          }
+        );
 
         const result = await response.json();
         if (result.success) {
