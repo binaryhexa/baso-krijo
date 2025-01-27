@@ -60,7 +60,7 @@ const EditMenu = () => {
       })
       .then(() => {
         ToastSuccess("Menu berhasil di ubah!");
-        navigate("/");
+        navigate("/manajemen-menu");
       })
       .catch((error) => {
         ToastFailure("Menu gagal di ubah!")

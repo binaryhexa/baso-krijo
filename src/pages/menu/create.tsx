@@ -33,7 +33,7 @@ const FormCreateMenu: React.FC = () => {
         }
       );
       ToastSuccess("Menu berhasil ditambahkan!");
-      navigate("/");
+      navigate("/manajemen-menu");
       reset();
       console.log("Response:", response.data);
     } catch (error) {

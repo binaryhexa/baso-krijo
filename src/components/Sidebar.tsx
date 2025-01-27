@@ -5,6 +5,7 @@ import { GoDownload } from "react-icons/go";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 import axios from "axios";
 import DateFilterModal from "./PDFDateFilter";
+import { Collapse } from "@mui/material";
 
 const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
   const menuItems = [
@@ -105,30 +106,32 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
                   </span>
                 )}
               </li>
-              {menu.subItems && openMenu === menu.name && (
-                <ul className="pl-6">
-                  {menu.subItems.map((subItem, index) => (
-                    <li
-                      key={index}
-                      className={`flex items-center justify-center mb-4 cursor-pointer hover:bg-primary40 hover:text-white hover:ml-10 hover:p-3 hover:rounded-l-full transition-all ${
-                        location.pathname === subItem.path
-                          ? "bg-white ml-6 p-3 text-black rounded-l-full"
-                          : ""
-                      }`}
-                    >
-                      <a
-                        href={subItem.path}
-                        className={`block py-2 px-8 w-full ${
+              {menu.subItems && (
+                <Collapse in={openMenu === menu.name}>
+                  <ul className="pl-6">
+                    {menu.subItems.map((subItem, index) => (
+                      <li
+                        key={index}
+                        className={`flex items-center justify-center mb-4 cursor-pointer hover:bg-primary40 hover:text-white hover:ml-10 hover:p-3 hover:rounded-l-full transition-all ${
                           location.pathname === subItem.path
-                            ? "rounded-lg"
-                            : "border-none"
+                            ? "bg-white ml-6 p-3 text-black rounded-l-full"
+                            : ""
                         }`}
                       >
-                        {subItem.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                        <a
+                          href={subItem.path}
+                          className={`block py-2 px-8 w-full ${
+                            location.pathname === subItem.path
+                              ? "rounded-lg"
+                              : "border-none"
+                          }`}
+                        >
+                          {subItem.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </Collapse>
               )}
             </div>
           ))}
