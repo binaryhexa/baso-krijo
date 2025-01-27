@@ -51,7 +51,7 @@ const EditStok = () => {
 
   return (
     <div className="p-8 max-w-md mx-auto">
-      <h1 className="font-semibold text-2xl text-center">Edit Stok</h1>
+      <h1 className="font-semibold text-2xl text-center">Ubah Stok</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4 py-10">
         <div className="mb-4">
           <label className="block font-medium mb-2">Nama Menu</label>

@@ -63,7 +63,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
 
   return (
     <div
-      className={`flex w-96 flex-col bg-primary50 pt-6 shadow-3xl transition-all duration-300 ${
+      className={`flex w-96 flex-col bg-primary50 pt-6 shadow-2xl transition-all duration-300 ${
         isHidden ? "hidden" : ""
       }`}
     >
