@@ -4,6 +4,9 @@ import Layout from "./components/Layout";
 import { CartProvider } from "./context/CardContext";
 import { ToastContainer } from "react-toastify";
 import LoadingScreen from "./components/LoadingScreen";
+import StokBahanBaku from "./pages/ManajemenStokBahanBaku";
+import StokBahanBakuCreate from "./pages/ManajemenStokBahanBaku/create";
+import BahanBakuEdit from "./pages/ManajemenStokBahanBaku/update";
 
 const Home = lazy(() => import("./pages/home"));
 const Menu = lazy(() => import("./pages/menu"));
@@ -49,6 +52,15 @@ function App() {
               <Route path="/manajemen-stok/edit/:id" element={<EditStok />} />
               {/* End of Manajemen Stok Section */}
               <Route path="/create" element={<FormCreateMenu />} />
+
+              {/* Start of Manajemen Stok Bahan Baku Section */}
+              <Route path="/bahan-baku" element={<StokBahanBaku />} />
+              <Route
+                path="/bahan-baku/create"
+                element={<StokBahanBakuCreate />}
+              />
+              <Route path="/bahan-baku/edit/:id" element={<BahanBakuEdit />} />
+              {/* End of Manajemen Stok Bahan Baku Section */}
             </Route>
           </Routes>
         </Suspense>

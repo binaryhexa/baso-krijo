@@ -11,8 +11,8 @@ const EditMenu = () => {
     category: "",
     harga: 0,
     stok: 0,
-    image_link: "", 
-    imageFile: null as File | null, 
+    image_link: "",
+    imageFile: null as File | null,
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +21,7 @@ const EditMenu = () => {
     axios.get(`http://localhost:5000/api/menu/${id}`).then((response) => {
       setMenuData({
         ...response.data,
-        imageFile: null, 
+        imageFile: null,
       });
       setIsLoading(false);
     });
@@ -63,7 +63,7 @@ const EditMenu = () => {
         navigate("/manajemen-menu");
       })
       .catch((error) => {
-        ToastFailure("Menu gagal di ubah!")
+        ToastFailure("Menu gagal di ubah!");
         console.error("Failed to update menu:", error);
       });
   };
@@ -76,50 +76,41 @@ const EditMenu = () => {
     <div className="p-6">
       <h1 className="font-semibold text-2xl text-center">Ubah Menu</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-4 py-10">
-        <div className="mb-4">
-          <label className="block font-medium mb-2">Nama Menu</label>
-          <input
-            type="text"
-            name="name"
-            value={menuData.name}
-            onChange={handleInputChange}
-            placeholder="Nama Menu"
-            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label className="block font-medium mb-2">Nama Menu</label>
+            <input
+              type="text"
+              name="name"
+              value={menuData.name}
+              onChange={handleInputChange}
+              placeholder="Nama Menu"
+              className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block font-medium mb-2">Kategori</label>
+            <input
+              type="text"
+              name="category"
+              value={menuData.category}
+              onChange={handleInputChange}
+              placeholder="Kategori"
+              className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
+            />
+          </div>
         </div>
-        <div className="mb-4">
-          <label className="block font-medium mb-2">Kategori</label>
-          <input
-            type="text"
-            name="category"
-            value={menuData.category}
-            onChange={handleInputChange}
-            placeholder="Kategori"
-            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-medium mb-2">Harga</label>
-          <input
-            type="number"
-            name="harga"
-            value={menuData.harga}
-            onChange={handleInputChange}
-            placeholder="Harga"
-            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block font-medium mb-2">Jumlah Stok</label>
-          <input
-            type="number"
-            name="stok"
-            value={menuData.stok}
-            onChange={handleInputChange}
-            placeholder="Jumlah Stok"
-            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
-          />
-        </div>
+          <div className="mb-4">
+            <label className="block font-medium mb-2">Harga</label>
+            <input
+              type="number"
+              name="harga"
+              value={menuData.harga}
+              onChange={handleInputChange}
+              placeholder="Harga"
+              className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
+            />
+          </div>
         {menuData.image_link && (
           <div>
             <p className="text-gray-600">Gambar Saat Ini:</p>
@@ -131,7 +122,9 @@ const EditMenu = () => {
           </div>
         )}
         <div className="mb-4">
-          <label className="block font-medium mb-2">Ubah Gambar (Opsional)</label>
+          <label className="block font-medium mb-2">
+            Ubah Gambar (Opsional)
+          </label>
           <input
             type="file"
             name="imageFile"

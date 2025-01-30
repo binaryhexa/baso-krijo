@@ -1,23 +1,23 @@
 import CustomButton from "@/components/CustomButton";
-import ManajemenStokTable from "./components/ManajemenStokTable";
 import { useNavigate } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
+import BahanBakuTable from "./components/BahanBakuTable";
 
-const ManajemenStok = () => {
+const StokBahanBaku = () => {
   const navigate = useNavigate();
   return (
     <div>
       <div className="flex justify-between">
-        <h1 className="text-2xl font-semibold">Manajemen Stok Menu</h1>
+        <h1 className="text-2xl font-semibold">Pembelian Bahan</h1>
         <CustomButton
           label="Tambahkan Stok"
-          onClick={() => navigate("/manajemen-stok/create")}
+          onClick={() => navigate("/bahan-baku/create")}
           endIcon={<IoIosAdd />}
         />
       </div>
-      <ManajemenStokTable />
+      <BahanBakuTable />
     </div>
   );
 };
 
-export default ManajemenStok;
+export default StokBahanBaku;
