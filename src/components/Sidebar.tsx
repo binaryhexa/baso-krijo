@@ -1,10 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import CustomButton from "./CustomButton";
-import { GoDownload } from "react-icons/go";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
-import axios from "axios";
-import DateFilterModal from "./PDFDateFilter";
 import { Collapse } from "@mui/material";
 
 const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
@@ -20,42 +16,16 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
     },
     {
       name: "Stok",
-      subItems: [{ name: "Manajemen Stok", path: "/manajemen-stok" }],
+      subItems: [
+        { name: "Stok Menu", path: "/manajemen-stok" },
+        { name: "Stok Bahan Baku", path: "/bahan-baku" },
+      ],
     },
   ];
 
   const location = useLocation();
 
-  const [reportData, setReportData] = useState<
-    { menu_name: string; quantity: number; total_price: number }[]
-  >([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [selectedPeriod, setSelectedPeriod] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchSalesReport = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/dashboard/sales-report"
-        );
-        const { reportData, totalPrice } = response.data;
-
-        setReportData(reportData);
-        setTotalPrice(totalPrice);
-      } catch (error) {
-        console.error("Error fetching sales report:", error);
-      }
-    };
-
-    fetchSalesReport();
-  }, []);
-
-  const handleDateFilterApply = (startDate: Date, endDate: Date) => {
-    const formattedPeriod = `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
-    setSelectedPeriod(formattedPeriod);
-  };
 
   const toggleMenu = (menuName: string) => {
     setOpenMenu(openMenu === menuName ? null : menuName);
@@ -136,23 +106,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
             </div>
           ))}
         </ul>
-        <div className="flex items-center justify-center -mt-14">
-          <CustomButton
-            label="Cetak Laporan Penjualan"
-            startIcon={<GoDownload />}
-            onClick={() => setIsModalOpen(true)}
-          />
-        </div>
       </nav>
-
-      <DateFilterModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onApply={handleDateFilterApply}
-        reportData={reportData}
-        totalPrice={totalPrice}
-        selectedPeriod={selectedPeriod}
-      />
     </div>
   );
 };

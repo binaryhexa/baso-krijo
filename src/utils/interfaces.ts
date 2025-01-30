@@ -40,3 +40,12 @@ export interface SalesReportPDFProps {
   totalPrice: number;
   period?: string;
 }
+
+export interface BahanBakuProps {
+  id: string;
+  nama: string;
+  harga: number;
+  jumlah: number;
+  created_at: string;
+  updated_at: string;
+}
