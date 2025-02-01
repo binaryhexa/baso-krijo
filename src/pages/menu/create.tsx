@@ -28,7 +28,7 @@ const FormCreateMenu: React.FC = () => {
         }
       );
       ToastSuccess("Menu berhasil ditambahkan!");
-      navigate("/manajemen-menu");
+      navigate("/admin/manajemen_menu");
       reset();
       console.log("Response:", response.data);
     } catch (error) {

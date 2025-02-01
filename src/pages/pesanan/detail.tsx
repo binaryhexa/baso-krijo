@@ -43,7 +43,7 @@ const OrderDetail = () => {
       if (response.data.success) {
         ToastSuccess("Pesanan berhasil diselesaikan");
         setOrder({ ...order, status_pesanan: "Selesai" } as OrderProps);
-        navigate("/pesanan");
+        navigate("/admin/pesanan");
       }
     } catch (err) {
       console.error("Gagal menyelesaikan pesanan", err);

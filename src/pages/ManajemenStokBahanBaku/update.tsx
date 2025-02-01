@@ -54,7 +54,7 @@ const BahanBakuEdit: React.FC = () => {
     try {
       await axios.put(`http://localhost:5000/api/bahan-baku/${id}`, formData);
       ToastSuccess("Bahan baku berhasil diperbarui");
-      navigate("/bahan-baku");
+      navigate("/admin/stok/bahan");
     } catch (error) {
       console.error("Error updating bahan baku:", error);
       ToastFailure("Gagal memperbarui bahan baku");

@@ -60,7 +60,7 @@ const Cart = () => {
           ToastSuccess("Pesanan Berhasil Dibuat");
           setTimeout(() => {
             setIsLoading(false);
-            navigate("/pesanan");
+            navigate("/admin/pesanan");
           }, 1500);
         } else {
           throw new Error(result.message || "Gagal membuat pesanan");

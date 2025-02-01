@@ -59,7 +59,7 @@ const Pesanan = () => {
         <h1 className="font-semibold text-2xl">Daftar Pesanan</h1>
         <CustomButton
           label="Cetak Laporan Penjualan"
-          startIcon={<GoDownload />}
+          endIcon={<GoDownload />}
           onClick={() => setIsModalOpen(true)}
         />
       </div>

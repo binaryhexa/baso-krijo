@@ -12,7 +12,7 @@ const ManajemenMenu = () => {
         <h1 className="font-semibold text-2xl">Manajemen Menu</h1>
         <CustomButton
           label="Tambahkan Menu Baru"
-          onClick={() => navigate("/create")}
+          onClick={() => navigate("/admin/manajemen_menu/create")}
           endIcon={<IoIosAdd />}
         />
       </div>

@@ -103,7 +103,7 @@ const PesananTable = () => {
                       Rp. {row.total_harga.toLocaleString()}
                     </TableCell>
                     <TableCell align="center">
-                      <ActionButton detailPath={`/pesanan/detail/${row.id_pesanan}`} />
+                      <ActionButton detailPath={`/admin/pesanan/${row.id_pesanan}`} />
                     </TableCell>
                   </TableRow>
                 ))
