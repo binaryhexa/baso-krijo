@@ -29,7 +29,7 @@ const StokBahanBakuCreate: React.FC = () => {
 
     try {
       await axios.post("http://localhost:5000/api/bahan-baku", formData);
-      navigate("/bahan-baku");
+      navigate("/admin/stok/bahan");
     } catch (err) {
       console.log(err);
     }

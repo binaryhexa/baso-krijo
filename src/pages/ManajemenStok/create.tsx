@@ -30,7 +30,7 @@ const ManajemenStokCreate: React.FC = () => {
         quantity: parseInt(stockQuantity, 10)
       });
       ToastSuccess('Stok berhasil ditambahkan');
-      navigate('/manajemen-stok')
+      navigate('/admin/stok/menu')
       setSelectedMenu('');
       setStockQuantity('');
     } catch (error) {

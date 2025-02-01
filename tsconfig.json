@@ -26,6 +26,8 @@
       "@/context/*": ["src/context/*"],
       "@/fonts/*": ["src/fonts/*"],
       "@/pages/*": ["src/pages/*"],
+      "@/routes/*": ["src/routes/*"],
+      "@/routes-page/*": ["src/routes-page/*"],
       "@/services/*": ["src/services/*"],
       "@/utils/*": ["src/utils/*"]
     },

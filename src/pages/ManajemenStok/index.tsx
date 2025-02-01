@@ -11,7 +11,7 @@ const ManajemenStok = () => {
         <h1 className="text-2xl font-semibold">Manajemen Stok Menu</h1>
         <CustomButton
           label="Tambahkan Stok"
-          onClick={() => navigate("/manajemen-stok/create")}
+          onClick={() => navigate("/admin/stok/menu/create")}
           endIcon={<IoIosAdd />}
         />
       </div>

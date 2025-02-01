@@ -101,7 +101,7 @@ const BahanBakuTable = () => {
                     <div className="flex gap-4 items-center justify-center">
                       <button
                         onClick={() =>
-                          navigate(`/bahan-baku/edit/${row.id}`)
+                          navigate(`/admin/stok/bahan/edit/${row.id}`)
                         }
                         className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
                       >

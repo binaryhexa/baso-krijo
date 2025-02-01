@@ -1,30 +1,47 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 import { Collapse } from "@mui/material";
+import { useAuth } from "@/context/AuthContext";
+import { jwtDecode } from "jwt-decode";
+import { kasirRoute, ownerRoute } from "../routes";
+import { adminRoute } from "@/routes/adminRoutes";
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { HiOutlineLogout } from "react-icons/hi";
+
+type UserData = {
+  id: number;
+  username: string;
+  role: string;
+};
 
 const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
-  const menuItems = [
-    { name: "Dashboard", path: "/" },
-    {
-      name: "Menu",
-      subItems: [
-        { name: "Daftar Menu", path: "/menu" },
-        { name: "Manajemen Menu", path: "/manajemen-menu" },
-        { name: "Pesanan", path: "/pesanan" },
-      ],
-    },
-    {
-      name: "Stok",
-      subItems: [
-        { name: "Stok Menu", path: "/manajemen-stok" },
-        { name: "Stok Bahan Baku", path: "/bahan-baku" },
-      ],
-    },
-  ];
+  const { role } = useAuth();
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded: UserData = jwtDecode(token);
+        setUserData(decoded);
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
+
+  const menuItems = 
+  role === "Karyawan" ? kasirRoute : 
+  role === "Admin" ? adminRoute : 
+  role === "Owner" ? ownerRoute : [];
 
   const location = useLocation();
-
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   const toggleMenu = (menuName: string) => {
@@ -38,11 +55,11 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
       }`}
     >
       <div className="relative mb-8 flex items-center justify-between pt-4">
-        <a className="m-auto w-full -mt-2" href="/">
+        <Link className="m-auto w-full -mt-2" to="/">
           <h1 className="text-2xl font-semibold text-center text-white">
             Baso Krijo
           </h1>
-        </a>
+        </Link>
       </div>
       <nav className="no-scrollbar h-full w-full overflow-y-scroll text-white text-[15px]">
         <ul className="flex flex-col py-4 p-0 h-full">
@@ -56,8 +73,8 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
                     : ""
                 }`}
               >
-                <a
-                  href={menu.path}
+                <Link
+                  to={menu.path || "#"}
                   className={`block py-2 px-8 w-full ${
                     location.pathname === menu.path
                       ? "rounded-lg"
@@ -65,7 +82,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
                   }`}
                 >
                   {menu.name}
-                </a>
+                </Link>
                 {menu.subItems && (
                   <span>
                     {openMenu === menu.name ? (
@@ -88,8 +105,8 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
                             : ""
                         }`}
                       >
-                        <a
-                          href={subItem.path}
+                        <Link
+                          to={subItem.path}
                           className={`block py-2 px-8 w-full ${
                             location.pathname === subItem.path
                               ? "rounded-lg"
@@ -97,7 +114,7 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
                           }`}
                         >
                           {subItem.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -107,6 +124,34 @@ const Sidebar = ({ isHidden }: { isHidden: boolean }) => {
           ))}
         </ul>
       </nav>
+      {userData && (
+        <div className="p-4 mt-auto">
+          <div className="flex flex-col border-t-[1px] border-b-[1px]">
+            <div className="flex items-center gap-3 text-white mt-1">
+              <span className="text-3xl">
+                <IoPersonCircleOutline />
+              </span>
+              <div className="flex flex-col">
+                <p className="text-lg font-medium text-white">
+                  {userData.username.charAt(0).toUpperCase() +
+                    userData.username.slice(1)}
+                </p>
+
+                <p className="text-sm mb-2 text-neutral40">{userData.role}</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex">
+            <button
+              onClick={handleLogout}
+              className="mt-4 w-full py-2 bg-white text-black rounded-full hover:bg-primary40 hover:text-white transition-all flex items-center justify-center px-4"
+            >
+              Keluar
+              <HiOutlineLogout className="ml-2 text-xl" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

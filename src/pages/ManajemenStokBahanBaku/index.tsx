@@ -11,7 +11,7 @@ const StokBahanBaku = () => {
         <h1 className="text-2xl font-semibold">Pembelian Bahan</h1>
         <CustomButton
           label="Tambahkan Stok"
-          onClick={() => navigate("/bahan-baku/create")}
+          onClick={() => navigate("/admin/stok/bahan/create")}
           endIcon={<IoIosAdd />}
         />
       </div>

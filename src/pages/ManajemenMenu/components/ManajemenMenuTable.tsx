@@ -15,12 +15,15 @@ import { useNavigate } from "react-router-dom";
 import { HiOutlinePencil } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { ToastFailure, ToastSuccess } from "@/components/Toasts";
+import ModalKonfirmasi from "./ModalKonfirmasi"; // Import modal konfirmasi
 
 const ManajemenMenuTable = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState<MenuProps[]>([]);
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
+  const [openModal, setOpenModal] = useState(false);
+  const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     fetchMenus();
@@ -46,19 +49,25 @@ const ManajemenMenuTable = () => {
   };
 
   const handleDelete = (id: string) => {
-    axios
-      .delete(`http://localhost:5000/api/menu/${id}`)
-      .then(() => {
-        ToastSuccess("Menu berhasil dihapus.");
-        fetchMenus();
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((error) => {
-        console.error("Error deleting menu:", error);
-        ToastFailure("Gagal menghapus menu.");
-      });
+    setIdToDelete(id);
+    setOpenModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (idToDelete) {
+      axios
+        .delete(`http://localhost:5000/api/menu/${idToDelete}`)
+        .then(() => {
+          ToastSuccess("Menu berhasil dihapus.");
+          fetchMenus();
+          setOpenModal(false); 
+        })
+        .catch((error) => {
+          console.error("Error deleting menu:", error);
+          ToastFailure("Gagal menghapus menu.");
+          setOpenModal(false);
+        });
+    }
   };
 
   return (
@@ -100,7 +109,7 @@ const ManajemenMenuTable = () => {
                       <div className="flex gap-4 items-center justify-center">
                         <button
                           onClick={() =>
-                            navigate(`/manajemen-menu/edit/${row.id}`)
+                            navigate(`/admin/manajemen_menu/edit/${row.id}`)
                           }
                           className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
                         >
@@ -137,6 +146,13 @@ const ManajemenMenuTable = () => {
           />
         </div>
       )}
+
+      <ModalKonfirmasi
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        onConfirm={confirmDelete}
+        message="Apakah Anda yakin ingin menghapus menu ini?"
+      />
     </div>
   );
 };

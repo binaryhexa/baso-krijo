@@ -37,7 +37,7 @@ const EditStok = () => {
       .put(`http://localhost:5000/api/stok/${id}/edit`, { currentStock: menuData.stok })
       .then(() => {
         ToastSuccess("Stok berhasil diubah!");
-        navigate("/manajemen-stok");
+        navigate("/admin/stok/menu");
       })
       .catch((error) => {
         ToastFailure("Stok gagal diubah!")

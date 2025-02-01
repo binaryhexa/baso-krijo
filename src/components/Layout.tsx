@@ -1,21 +1,13 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
-// import UserProfile from "./UserProfile";
 import Cart from "@/pages/menu/components/Cart";
 
 const Layout = () => {
   const location = useLocation();
-  const isMenuPage = location.pathname === "/menu";
+  const isMenuPage = location.pathname === "/admin/menu";
 
   return (
     <div className="relative">
-      {/* <div
-        className={`${
-          isMenuPage ? "right-80 top-6 z-50" : "right-3 top-6 z-50"
-        } top-10 fixed`}
-      >
-        <UserProfile />
-      </div> */}
       <main className="flex h-screen w-full p-0 overflow-hidden relative no-scrollbar">
         <Sidebar isHidden={isMenuPage} />
         <section className="flex h-screen w-full overflow-auto p-8 no-scrollbar">
