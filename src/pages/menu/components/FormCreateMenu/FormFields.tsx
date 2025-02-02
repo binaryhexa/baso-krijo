@@ -1,12 +1,14 @@
-import { MenuProps } from "@/utils/interfaces";
 import React from "react";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { MenuProps } from "@/utils/interfaces";
+import CurrencyInput from "react-currency-input-field";
 
 interface FormFieldsProps {
   register: UseFormRegister<MenuProps>;
+  setValue: UseFormSetValue<MenuProps>;
 }
 
-const FormFields: React.FC<FormFieldsProps> = ({ register }) => {
+const FormFields: React.FC<FormFieldsProps> = ({ register, setValue }) => {
   return (
     <>
       <div className="grid grid-cols-2 gap-6">
@@ -20,10 +22,14 @@ const FormFields: React.FC<FormFieldsProps> = ({ register }) => {
         </div>
         <div className="mb-4">
           <label className="block mb-1 font-medium">Harga</label>
-          <input
-            type="number"
-            {...register("harga", { required: true })}
+          <CurrencyInput
             className="w-full border-[1.5px] border-gray-500 px-3 py-2 rounded-full"
+            prefix="Rp "
+            decimalSeparator=","
+            groupSeparator="."
+            placeholder="Rp 0"
+            allowNegativeValue={false}
+            onValueChange={(value) => setValue("harga", parseInt(value || "0"))}
           />
         </div>
       </div>

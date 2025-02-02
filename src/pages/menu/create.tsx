@@ -9,7 +9,7 @@ import { MenuProps } from "@/utils/interfaces";
 
 const FormCreateMenu: React.FC = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm<MenuProps>();
+  const { register, handleSubmit, reset, setValue } = useForm<MenuProps>();
 
   const onSubmit = async (data: MenuProps) => {
     const formData = new FormData();
@@ -43,7 +43,7 @@ const FormCreateMenu: React.FC = () => {
         Tambah Menu Baru
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormFields register={register} />
+        <FormFields register={register} setValue={setValue}/>
         <FormSubmitButton />
       </form>
     </div>
