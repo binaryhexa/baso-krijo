@@ -9,7 +9,7 @@ const EditMenu = () => {
   const [menuData, setMenuData] = useState({
     name: "",
     category: "",
-    harga: 0,
+    harga: "",
     stok: 0,
     image_link: "",
     imageFile: null as File | null,
@@ -21,6 +21,7 @@ const EditMenu = () => {
     axios.get(`http://localhost:5000/api/menu/${id}`).then((response) => {
       setMenuData({
         ...response.data,
+        harga: formatCurrency(response.data.harga),
         imageFile: null,
       });
       setIsLoading(false);
@@ -32,7 +33,10 @@ const EditMenu = () => {
   ) => {
     const { name, value } = e.target;
 
-    if (name === "imageFile" && e.target instanceof HTMLInputElement) {
+    if (name === "harga") {
+      const rawValue = value.replace(/[^0-9]/g, "");
+      setMenuData({ ...menuData, harga: formatCurrency(rawValue) });
+    } else if (name === "imageFile" && e.target instanceof HTMLInputElement) {
       setMenuData({
         ...menuData,
         imageFile: e.target.files ? e.target.files[0] : null,
@@ -42,13 +46,19 @@ const EditMenu = () => {
     }
   };
 
+  const formatCurrency = (value: string) => {
+    if (!value) return "";
+    return "Rp " + parseInt(value).toLocaleString("id-ID");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const hargaRaw = menuData.harga.replace(/[^\d]/g, ""); // Menghapus prefix dan koma
     const formData = new FormData();
     formData.append("name", menuData.name);
     formData.append("category", menuData.category);
-    formData.append("harga", menuData.harga.toString());
+    formData.append("harga", hargaRaw);
     formData.append("stok", menuData.stok.toString());
     if (menuData.imageFile) {
       formData.append("image", menuData.imageFile);
@@ -60,7 +70,7 @@ const EditMenu = () => {
       })
       .then(() => {
         ToastSuccess("Menu berhasil di ubah!");
-        navigate("/manajemen-menu");
+        navigate("/admin/manajemen_menu");
       })
       .catch((error) => {
         ToastFailure("Menu gagal di ubah!");
@@ -100,17 +110,17 @@ const EditMenu = () => {
             />
           </div>
         </div>
-          <div className="mb-4">
-            <label className="block font-medium mb-2">Harga</label>
-            <input
-              type="number"
-              name="harga"
-              value={menuData.harga}
-              onChange={handleInputChange}
-              placeholder="Harga"
-              className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
-            />
-          </div>
+        <div className="mb-4">
+          <label className="block font-medium mb-2">Harga</label>
+          <input
+            type="text"
+            name="harga"
+            value={menuData.harga}
+            onChange={handleInputChange}
+            placeholder="Rp 0"
+            className="border-[1.5px] border-gray-500 rounded-full p-2 w-full"
+          />
+        </div>
         {menuData.image_link && (
           <div>
             <p className="text-gray-600">Gambar Saat Ini:</p>
@@ -122,9 +132,7 @@ const EditMenu = () => {
           </div>
         )}
         <div className="mb-4">
-          <label className="block font-medium mb-2">
-            Ubah Gambar (Opsional)
-          </label>
+          <label className="block font-medium mb-2">Ubah Gambar (Opsional)</label>
           <input
             type="file"
             name="imageFile"

@@ -36,16 +36,29 @@ const BahanBakuEdit: React.FC = () => {
     } catch (error) {
       console.error("Error fetching bahan baku:", error);
       ToastFailure("Gagal mengambil data bahan baku");
-      navigate("/bahan-baku");
     }
+  };
+
+  const formatCurrency = (value: number) => {
+    if (!value) return "";
+    return "Rp " + (value).toLocaleString("id-ID");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "nama" ? value : Number(value),
-    }));
+
+    if (name === "harga") {
+      const rawValue = value.replace(/[^\d]/g, ""); // Remove non-numeric characters
+      setFormData((prev) => ({
+        ...prev,
+        [name]: Number(rawValue), // Store the numeric value
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: name === "nama" ? value : Number(value),
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -80,7 +93,7 @@ const BahanBakuEdit: React.FC = () => {
             value={formData.nama}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 rounded-full border-[1.5px] border-gray-500 focus:border-blue-500 focus:outline-none"
+            className="w-full px-4 py-2 rounded-full border-[1.5px] border-gray-500 focus:border-primary50 focus:outline-none"
             placeholder="Masukkan nama bahan"
           />
         </div>
@@ -101,7 +114,7 @@ const BahanBakuEdit: React.FC = () => {
               onChange={handleChange}
               required
               min="0"
-              className="w-full px-4 py-2 rounded-full border-[1.5px] border-gray-500 focus:border-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 rounded-full border-[1.5px] border-gray-500 focus:border-primary50 focus:outline-none"
               placeholder="Masukkan jumlah"
             />
           </div>
@@ -114,14 +127,14 @@ const BahanBakuEdit: React.FC = () => {
               Harga
             </label>
             <input
-              type="number"
+              type="text"
               id="harga"
               name="harga"
-              value={formData.harga}
+              value={formatCurrency(formData.harga)}
               onChange={handleChange}
               required
               min="0"
-              className="w-full px-4 py-2 rounded-full border-[1.5px] border-gray-500 focus:border-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 rounded-full border-[1.5px] border-gray-500 focus:border-primary50 focus:outline-none"
               placeholder="Masukkan harga"
             />
           </div>
