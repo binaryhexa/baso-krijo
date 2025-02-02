@@ -1,4 +1,7 @@
 import Home from "@/pages/home";
+import ManajemenAkun from "@/pages/ManajemenAkun";
+import RegisterPage from "@/pages/ManajemenAkun/Register";
+import EditAccountPage from "@/pages/ManajemenAkun/update";
 import EditMenu from "@/pages/ManajemenMenu/update";
 import ManajemenStok from "@/pages/ManajemenStok";
 import ManajemenStokCreate from "@/pages/ManajemenStok/create";
@@ -77,6 +80,21 @@ const OwnerRoutes = [
     name: "Stok Bahan Edit",
     path: "/admin/stok/bahan/edit/:id",
     element: <BahanBakuEdit />,
+  },
+  {
+    name: "Manajemen Akun",
+    path: "/admin/akun",
+    element: <ManajemenAkun />,
+  },
+  {
+    name: "Buat Akun",
+    path: "/admin/akun/create",
+    element: <RegisterPage />,
+  },
+  {
+    name: "Buat Akun",
+    path: "/admin/akun/edit/:id",
+    element: <EditAccountPage />,
   },
 ];
 

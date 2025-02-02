@@ -10,7 +10,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import KasirRoutes from "./routes-page/KasirRoutes";
 import { jwtDecode } from "jwt-decode";
 import AdminRoutes from "./routes-page/AdminRoutes";
-import RegisterPage from "./pages/Register";
 import OwnerRoutes from "./routes-page/OwnerRoutes";
 
 const Home = lazy(() => import("./pages/home"));
@@ -43,7 +42,6 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterPage />} />
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute />}>
