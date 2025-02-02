@@ -8,6 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TableSortLabel,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ const ManajemenMenuTable = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState<MenuProps[]>([]);
   const [page, setPage] = useState(1);
+  const [order, setOrder] = useState<"asc" | "desc">("asc");
   const rowsPerPage = 5;
   const [openModal, setOpenModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
@@ -60,7 +62,7 @@ const ManajemenMenuTable = () => {
         .then(() => {
           ToastSuccess("Menu berhasil dihapus.");
           fetchMenus();
-          setOpenModal(false); 
+          setOpenModal(false);
         })
         .catch((error) => {
           console.error("Error deleting menu:", error);
@@ -70,13 +72,35 @@ const ManajemenMenuTable = () => {
     }
   };
 
+  const handleSortRequest = () => {
+    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+    setItems((prevData) =>
+      [...prevData].sort((a, b) => {
+        const numA = parseInt(a.id, 10);
+        const numB = parseInt(b.id, 10);
+        if (isNaN(numA) || isNaN(numB)) return 0;
+
+        return order === "asc" ? numA - numB : numB - numA;
+      })
+    );
+  };
+
   return (
     <div className="py-12 relative">
       <TableContainer className="rounded-2xl">
         <Table>
           <TableHead className="bg-gray-200">
             <TableRow>
-              <StyledTableCell align="center">No</StyledTableCell>
+              <StyledTableCell align="center">
+                {" "}
+                <TableSortLabel
+                  active={true}
+                  direction={order}
+                  onClick={handleSortRequest}
+                >
+                  No
+                </TableSortLabel>
+              </StyledTableCell>
               <StyledTableCell align="center">Gambar</StyledTableCell>
               <StyledTableCell align="center">Nama Menu</StyledTableCell>
               <StyledTableCell align="center">Kategori</StyledTableCell>

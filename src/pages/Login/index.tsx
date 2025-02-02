@@ -28,7 +28,7 @@ const LoginForm: React.FC = () => {
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
       const response = await axios.post(
-        "https://baso-krijo-backend.vercel.app/api/auth/login",
+        "http://localhost:5000/api/auth/login",
         data
       );
 

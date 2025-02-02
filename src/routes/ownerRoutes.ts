@@ -18,4 +18,10 @@ export const ownerRoute = [
             { name: 'Stok Bahan', path: '/admin/stok/bahan' },
         ]
     },
+    {
+        name: 'Manajemen Akun',
+        subItems: [
+            { name: 'Tambahkan Akun', path: '/admin/akun' },
+        ]
+    },
 ]

@@ -1,4 +1,4 @@
-import { BahanBakuProps } from "@/utils/interfaces";
+import { UserProps } from "@/utils/interfaces";
 import {
   Pagination,
   styled,
@@ -13,19 +13,18 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HiOutlinePencil } from "react-icons/hi";
+import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
+import ModalKonfirmasi from "@/pages/ManajemenMenu/components/ModalKonfirmasi";
+import { ToastFailure, ToastSuccess } from "@/components/Toasts";
 
-interface ApiResponse {
-  status: string;
-  data: BahanBakuProps[];
-}
-
-const BahanBakuTable = () => {
+const ManajemenAkunTable = () => {
   const navigate = useNavigate();
-  const [items, setItems] = useState<BahanBakuProps[]>([]);
+  const [items, setItems] = useState<UserProps[]>([]);
   const [page, setPage] = useState(1);
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const rowsPerPage = 5;
+  const [openModal, setOpenModal] = useState(false);
+  const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     fetchMenus();
@@ -33,15 +32,37 @@ const BahanBakuTable = () => {
 
   const fetchMenus = () => {
     axios
-      .get<ApiResponse>("http://localhost:5000/api/bahan-baku")
+      .get("http://localhost:5000/api/auth/users")
       .then((response) => {
-        setItems(response.data.data || []);
-        console.log(response.data.data);
+        setItems(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error fetching menus:", error);
         setItems([]);
       });
+  };
+
+  const handleDelete = (id: string) => {
+    setIdToDelete(id);
+    setOpenModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (idToDelete) {
+      axios
+        .delete(`http://localhost:5000/api/auth/users/${idToDelete}`)
+        .then(() => {
+          ToastSuccess("Akun berhasil dihapus.");
+          fetchMenus();
+          setOpenModal(false);
+        })
+        .catch((error) => {
+          console.error("Error deleting account:", error);
+          ToastFailure("Gagal menghapus akun.");
+          setOpenModal(false);
+        });
+    }
   };
 
   const StyledTableCell = styled(TableCell)({
@@ -56,15 +77,6 @@ const BahanBakuTable = () => {
     ? items.slice((page - 1) * rowsPerPage, page * rowsPerPage)
     : [];
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("id-ID", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    });
-  };
-
   const handleSortRequest = () => {
     setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
     setItems((prevData) =>
@@ -77,7 +89,7 @@ const BahanBakuTable = () => {
       })
     );
   };
-  
+
   return (
     <div className="py-12 relative">
       <TableContainer className="rounded-2xl">
@@ -94,10 +106,8 @@ const BahanBakuTable = () => {
                   No
                 </TableSortLabel>
               </StyledTableCell>
-              <StyledTableCell align="center">Tanggal</StyledTableCell>
-              <StyledTableCell align="center">Nama Bahan</StyledTableCell>
-              <StyledTableCell align="center">Harga</StyledTableCell>
-              <StyledTableCell align="center">Jumlah</StyledTableCell>
+              <StyledTableCell align="center">Nama</StyledTableCell>
+              <StyledTableCell align="center">Jabatan</StyledTableCell>
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -115,23 +125,21 @@ const BahanBakuTable = () => {
                   <TableCell align="center">
                     {(page - 1) * rowsPerPage + index + 1}
                   </TableCell>
-                  <TableCell align="center">
-                    {formatDate(row.created_at)}
-                  </TableCell>
-                  <TableCell align="center">{row.nama}</TableCell>
-                  <TableCell align="center">
-                    Rp. {row.harga.toLocaleString()}
-                  </TableCell>
-                  <TableCell align="center">{row.jumlah}</TableCell>
+                  <TableCell align="center">{row.username}</TableCell>
+                  <TableCell align="center">{row.role}</TableCell>
                   <TableCell align="center">
                     <div className="flex gap-4 items-center justify-center">
                       <button
-                        onClick={() =>
-                          navigate(`/admin/stok/bahan/edit/${row.id}`)
-                        }
+                        onClick={() => navigate(`/admin/akun/edit/${row.id}`)}
                         className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
                       >
                         <HiOutlinePencil size={20} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(row.id)}
+                        className="hover:rounded-full hover:p-2 hover:bg-neutral40 transition-all"
+                      >
+                        <HiOutlineTrash size={20} />
                       </button>
                     </div>
                   </TableCell>
@@ -152,8 +160,14 @@ const BahanBakuTable = () => {
           color="standard"
         />
       </div>
+      <ModalKonfirmasi
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        onConfirm={confirmDelete}
+        message="Apakah Anda yakin ingin menghapus akun ini?"
+      />
     </div>
   );
 };
 
-export default BahanBakuTable;
+export default ManajemenAkunTable;

@@ -49,3 +49,9 @@ export interface BahanBakuProps {
   created_at: string;
   updated_at: string;
 }
+
+export interface UserProps {
+  id: string;
+  username: string;
+  role: string;
+}

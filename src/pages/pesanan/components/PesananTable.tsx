@@ -9,6 +9,7 @@ import {
   TableRow,
   styled,
   Pagination,
+  TableSortLabel,
 } from "@mui/material";
 import axios from "axios";
 import ActionButton from "@/components/ActionButton";
@@ -16,6 +17,7 @@ import ActionButton from "@/components/ActionButton";
 const PesananTable = () => {
   const [data, setData] = useState<OrderProps[]>([]);
   const [page, setPage] = useState(1);
+  const [order, setOrder] = useState<"asc" | "desc">("asc");
   const rowsPerPage = 5;
 
   useEffect(() => {
@@ -41,9 +43,15 @@ const PesananTable = () => {
   const getStatusBadge = (status_pesanan: string) => {
     switch (status_pesanan) {
       case "Sedang Dibuat":
-        return <span className="font-medium text-orange-500 ">Sedang Dibuat</span>;
+        return (
+          <span className="font-medium text-orange-500 ">Sedang Dibuat</span>
+        );
       case "Selesai":
-        return <span className="rounded-full font-medium text-green-500 ">Selesai</span>;
+        return (
+          <span className="rounded-full font-medium text-green-500 ">
+            Selesai
+          </span>
+        );
       default:
         return null;
     }
@@ -62,13 +70,34 @@ const PesananTable = () => {
     setPage(value);
   };
 
+  const handleSortRequest = () => {
+    setOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+    setData((prevData) =>
+      [...prevData].sort((a, b) => {
+        const numA = parseInt(a.id_pesanan, 10);
+        const numB = parseInt(b.id_pesanan, 10);
+        if (isNaN(numA) || isNaN(numB)) return 0;
+
+        return order === "asc" ? numA - numB : numB - numA;
+      })
+    );
+  };
+
   return (
     <div className="py-12 relative">
       <TableContainer className="rounded-2xl">
         <Table>
           <TableHead className="bg-gray-200">
             <TableRow>
-              <StyledTableCell align="center">No</StyledTableCell>
+              <StyledTableCell align="center">
+                <TableSortLabel
+                  active={true}
+                  direction={order}
+                  onClick={handleSortRequest}
+                >
+                  No
+                </TableSortLabel>
+              </StyledTableCell>
               <StyledTableCell align="center">Kode Pesanan</StyledTableCell>
               <StyledTableCell align="center">Tanggal</StyledTableCell>
               <StyledTableCell align="center">Nama Pelanggan</StyledTableCell>
@@ -95,15 +124,21 @@ const PesananTable = () => {
                       {(page - 1) * rowsPerPage + index + 1}
                     </TableCell>
                     <TableCell align="center">{row.kode_pesanan}</TableCell>
-                    <TableCell align="center">{formatDate(row.created_at)}</TableCell>
+                    <TableCell align="center">
+                      {formatDate(row.created_at)}
+                    </TableCell>
                     <TableCell align="center">{row.nama_pembeli}</TableCell>
-                    <TableCell align="center">{getStatusBadge(row.status_pesanan)}</TableCell>
+                    <TableCell align="center">
+                      {getStatusBadge(row.status_pesanan)}
+                    </TableCell>
                     <TableCell align="center">{row.jenis_pesanan}</TableCell>
                     <TableCell align="center">
                       Rp. {row.total_harga.toLocaleString()}
                     </TableCell>
                     <TableCell align="center">
-                      <ActionButton detailPath={`/admin/pesanan/${row.id_pesanan}`} />
+                      <ActionButton
+                        detailPath={`/admin/pesanan/${row.id_pesanan}`}
+                      />
                     </TableCell>
                   </TableRow>
                 ))
